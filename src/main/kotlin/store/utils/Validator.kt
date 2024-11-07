@@ -10,7 +10,6 @@ object Validator {
         "(\\[(.[^]\\[\\-,]+)-(\\d+)])((,)(\\[(.[^]\\[\\-,]+)-(\\d+)]))*"
 
     fun validatePurchaseInfo(inputPurchaseInfo: String): List<String> {
-
         val pattern = Regex(REGEX)
         when {
             inputPurchaseInfo.isBlank() -> throw IllegalArgumentException(MONEY_BLANK_ERROR)
@@ -20,7 +19,6 @@ object Validator {
 
             else -> return inputPurchaseInfo.split(",")
         }
-
     }
 
     fun validateProductPurchasable(
@@ -28,10 +26,10 @@ object Validator {
         inputProductQuantity: Int,
         stocks: List<StockEntity>
     ): Boolean {
-        // TODO : 1. 이름을 확인하고,2.  구매 가능한지 확인
         val stockNames = stocks.map { it.name }.toList()
 
         checkProductName(inputProductName, stockNames)
+        checkProductQuantity(inputProductName, inputProductQuantity, stocks)
 
         return true
     }
@@ -41,5 +39,17 @@ object Validator {
             throw IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요.")
         }
     }
+
+    private fun checkProductQuantity(
+        inputProductName: String,
+        inputProductQuantity: Int,
+        stocks: List<StockEntity>
+    ) {
+        val stock = stocks.find { it.name == inputProductName }!!
+        if (stock.quantity < inputProductQuantity) {
+            throw IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.")
+        }
+    }
+
 
 }
