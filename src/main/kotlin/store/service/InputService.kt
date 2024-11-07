@@ -46,4 +46,16 @@ class InputService(
         }
     }
 
+    fun getDefaultPricePurchase(productName: String, productQuantity: Int): String {
+        while (true) {
+            try {
+                val input = InputView.getNoneDiscountPromotion(productName, productQuantity)
+                return Validator.validateYesOrNo(input)
+            } catch (e: IllegalArgumentException) {
+                println(e.message)
+                continue
+            }
+        }
+    }
+
 }
