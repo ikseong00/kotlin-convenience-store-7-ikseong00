@@ -17,7 +17,4 @@ object ExtensionUtil {
             else -> Promotion.NULL
         }
 
-    fun Stock.toProduct(): PurchaseProduct =
-        PurchaseProduct(name, quantity)
-
 }
