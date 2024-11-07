@@ -5,6 +5,7 @@ import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
+import store.model.StockEntity
 import store.utils.Validator
 
 class ValidatorTest {
@@ -42,8 +43,20 @@ class ValidatorTest {
         }
     }
 
-    companion object {
+    @Test
+    fun `존재하지 않는 상품을 입력한 경우 오류가 나온다`() {
+        assertThrows<IllegalArgumentException> {
+            Validator.validateProductPurchasable(
+                "코올라", 3, stocks)
+        }
+    }
 
+    companion object {
+        val stocks = listOf(
+            StockEntity("콜라", 1000, 10, "null", 0),
+            StockEntity("사이다", 1500, 10, "null", 0),
+            StockEntity("환타", 2000, 10, "null", 0)
+        )
 
     }
 
