@@ -1,6 +1,6 @@
 package store.utils
 
-import store.model.StockEntity
+import store.model.Stock
 import store.utils.message.ErrorMessages.MONEY_INPUT_FORMAT_ERROR
 import store.utils.message.ErrorMessages.PRODUCT_NOT_FOUND_ERROR
 import store.utils.message.ErrorMessages.STOCK_QUANTITY_ERROR
@@ -28,7 +28,7 @@ object Validator {
     fun validateProductPurchasable(
         inputProductName: String,
         inputProductQuantity: Int,
-        stocks: List<StockEntity>
+        stocks: List<Stock>
     ): Boolean {
         val stockNames = stocks.map { it.name }.toList()
 
@@ -47,7 +47,7 @@ object Validator {
     private fun checkProductQuantity(
         inputProductName: String,
         inputProductQuantity: Int,
-        stocks: List<StockEntity>
+        stocks: List<Stock>
     ) {
         val stock = stocks.find { it.name == inputProductName }!!
         if (stock.quantity < inputProductQuantity) {

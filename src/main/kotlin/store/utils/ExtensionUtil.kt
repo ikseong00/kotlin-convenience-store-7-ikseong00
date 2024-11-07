@@ -1,10 +1,13 @@
 package store.utils
 
-import store.model.Product
+import store.model.PurchaseProduct
 import store.model.Promotion
-import store.model.StockEntity
+import store.model.Stock
 
-object ConvertUtil {
+object ExtensionUtil {
+
+    private const val NULL = "null"
+    private const val EMPTY = ""
 
     fun String.toPromotion() =
         when (this) {
@@ -14,7 +17,7 @@ object ConvertUtil {
             else -> Promotion.NULL
         }
 
-    fun StockEntity.toProduct(): Product =
-        Product(name, price, quantity, promotion.toPromotion())
+    fun Stock.toProduct(): PurchaseProduct =
+        PurchaseProduct(name, quantity)
 
 }

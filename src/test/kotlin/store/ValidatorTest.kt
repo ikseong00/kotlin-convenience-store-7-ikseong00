@@ -5,7 +5,8 @@ import org.junit.jupiter.api.assertDoesNotThrow
 import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.ValueSource
-import store.model.StockEntity
+import store.model.Promotion
+import store.model.Stock
 import store.utils.Validator
 
 class ValidatorTest {
@@ -53,9 +54,9 @@ class ValidatorTest {
 
     companion object {
         val stocks = listOf(
-            StockEntity("콜라", 1000, 10, "null", 0),
-            StockEntity("사이다", 1500, 10, "null", 0),
-            StockEntity("환타", 2000, 10, "null", 0)
+            Stock("콜라", 1000, 10, Promotion.NULL, 0),
+            Stock("사이다", 1500, 10, Promotion.NULL, 0),
+            Stock("환타", 2000, 10, Promotion.NULL, 0)
         )
 
     }
