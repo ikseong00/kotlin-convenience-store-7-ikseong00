@@ -9,6 +9,18 @@ class InputService(
     private val stocks: List<Stock>
 ) {
 
+    fun getPurchaseInfoToProducts(): List<PurchaseProduct> {
+        while (true) {
+            try {
+                val separatedInfo = separatePurchaseInput()
+                return separatedInfoToProducts(separatedInfo)
+            } catch (e: IllegalArgumentException) {
+                println(e.message)
+                continue
+            }
+        }
+    }
+
     private fun separatedInfoToProducts(separatedInfo: List<String>): List<PurchaseProduct> {
         return separatedInfo.map {
             val (name, quantity) = it.split("-")
