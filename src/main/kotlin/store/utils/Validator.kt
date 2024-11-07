@@ -1,8 +1,9 @@
 package store.utils
 
 import store.model.StockEntity
-import store.utils.message.ErrorMessages.MONEY_BLANK_ERROR
 import store.utils.message.ErrorMessages.MONEY_INPUT_FORMAT_ERROR
+import store.utils.message.ErrorMessages.PRODUCT_NOT_FOUND_ERROR
+import store.utils.message.ErrorMessages.STOCK_QUANTITY_ERROR
 
 object Validator {
 
@@ -12,14 +13,14 @@ object Validator {
     fun validatePurchaseInfo(inputPurchaseInfo: String): List<String> {
         val pattern = Regex(REGEX)
         when {
-            inputPurchaseInfo.isBlank() -> throw IllegalArgumentException(MONEY_BLANK_ERROR)
+            inputPurchaseInfo.isBlank() -> throw IllegalArgumentException(MONEY_INPUT_FORMAT_ERROR)
             !pattern.matches(inputPurchaseInfo) -> throw IllegalArgumentException(
                 MONEY_INPUT_FORMAT_ERROR
             )
-
-            else -> return inputPurchaseInfo.split(",")
         }
+        return inputPurchaseInfo.split(",")
     }
+
 
     fun validateProductPurchasable(
         inputProductName: String,
@@ -36,7 +37,7 @@ object Validator {
 
     private fun checkProductName(inputProductName: String, productStocks: List<String>) {
         if (!productStocks.contains(inputProductName)) {
-            throw IllegalArgumentException("[ERROR] 존재하지 않는 상품입니다. 다시 입력해 주세요.")
+            throw IllegalArgumentException(PRODUCT_NOT_FOUND_ERROR)
         }
     }
 
@@ -47,7 +48,7 @@ object Validator {
     ) {
         val stock = stocks.find { it.name == inputProductName }!!
         if (stock.quantity < inputProductQuantity) {
-            throw IllegalArgumentException("[ERROR] 재고 수량을 초과하여 구매할 수 없습니다. 다시 입력해 주세요.")
+            throw IllegalArgumentException(STOCK_QUANTITY_ERROR)
         }
     }
 
