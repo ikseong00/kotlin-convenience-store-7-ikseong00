@@ -1,6 +1,8 @@
 package store.utils
 
+import store.model.Product
 import store.model.Promotion
+import store.model.StockEntity
 
 object ConvertUtil {
 
@@ -11,5 +13,8 @@ object ConvertUtil {
             Promotion.FLASH_SALE.promotionName -> Promotion.FLASH_SALE
             else -> Promotion.NULL
         }
+
+    fun StockEntity.toProduct(): Product =
+        Product(name, price, quantity, promotion.toPromotion())
 
 }

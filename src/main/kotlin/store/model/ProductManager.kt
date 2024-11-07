@@ -1,5 +1,6 @@
 package store.model
 
+import store.utils.ConvertUtil.toProduct
 import store.utils.ConvertUtil.toPromotion
 import java.io.File
 
@@ -20,12 +21,14 @@ class ProductManager() {
                     split[0],
                     split[1].toInt(),
                     split[2].toInt(),
-                    split[3].toPromotion()
+                    split[3]
                 )
             )
         }
     }
 
+    private fun getProducts(): List<Product> =
+        stocks.map { it.toProduct() }.toList()
 
 
 }
