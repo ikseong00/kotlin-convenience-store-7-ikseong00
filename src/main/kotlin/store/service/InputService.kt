@@ -23,7 +23,7 @@ class InputService(
 
     private fun separatedInfoToProducts(separatedInfo: List<String>): List<PurchaseProduct> {
         return separatedInfo.map {
-            val (name, quantity) = it.split("-")
+            val (name, quantity) = it.substring(1, it.length - 1).split("-")
             Validator.validateProductPurchasable(name, quantity.toInt(), stocks)
             PurchaseProduct(name, quantity.toInt())
         }.toList()
