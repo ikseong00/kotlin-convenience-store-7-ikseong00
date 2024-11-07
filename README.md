@@ -22,10 +22,17 @@
 
 ## 세부 기능 목록
 ### model
+
+### `StockEntity`
+
 ### `Product`
 
 ### `Promotion`
 `enum class`
+
+### `Recipt`
+
+### `Membership`
 
 ### view
 ### `InputView`
@@ -47,7 +54,22 @@
 
 ### controller
 ### `ConvinienceStoreController`
-- [ ] 
+1. 재고 출력
+2. 구매할 상품과 수량을 입력받음
+3. 프로모션 여부를 판단
+4. 멤버십 할인 여부 입력받음
+5. 영수증 출력
+6. 재구매 여부를 입력받음
+
+### `StockController`
+1. 파일로부터 재고 정보를 읽어서 엔티티에 저장
+2. 재고 정보를 반환
+3. 재고 정보를 업데이트
+
+### `MembershipController`
+1. 멤버십 할인 적용 여부를 저장
+   1. 멤버십 할인을 받지 않으면 `null`
+2. 멤버십 할인을 저장
 
 ### util
 ### `Validator`
@@ -59,6 +81,8 @@
 ### `ErrorMessage`
 ### `InputMessage`
 ### `OutputMessage`
+
+### `Converter`
 
 ## 유효성 검증
 ### 구입 상품과 수량 입력 자체의 검증
