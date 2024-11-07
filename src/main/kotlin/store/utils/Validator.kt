@@ -70,7 +70,8 @@ object Validator {
 
     fun validateYesOrNo(input: String): String {
         when (input) {
-            YES, NO -> return input
+            YES -> return YES
+            NO -> return NO
         }
         throw IllegalArgumentException(WRONG_INPUT_ERROR)
     }

@@ -12,7 +12,7 @@ class InputService(
     fun getPurchaseInfoToProducts(): List<PurchaseProduct> {
         while (true) {
             try {
-                val separatedInfo = separatePurchaseInput()
+                val separatedInfo = getAndSeparateInput()
                 return separatedInfoToProducts(separatedInfo)
             } catch (e: IllegalArgumentException) {
                 println(e.message)
@@ -29,9 +29,21 @@ class InputService(
         }.toList()
     }
 
-    private fun separatePurchaseInput(): List<String> {
+    private fun getAndSeparateInput(): List<String> {
         val input = InputView.getPurchaseInfo()
         return Validator.validatePurchaseInfo(input)
+    }
+
+    fun getPromotionQuantityAddition(productName: String): String {
+        while (true) {
+            try {
+                val input = InputView.getPromotionAddition(productName)
+                return Validator.validateYesOrNo(input)
+            } catch (e: IllegalArgumentException) {
+                println(e.message)
+                continue
+            }
+        }
     }
 
 }
