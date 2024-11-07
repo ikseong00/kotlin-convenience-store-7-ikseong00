@@ -1,28 +1,31 @@
 package store.model
 
+import store.utils.ConvertUtil.toPromotion
 import java.io.File
 
 class ProductManager() {
 
-    private val products = mutableListOf<Product>()
+    private val stocks = mutableListOf<StockEntity>()
 
     init {
-        readProducts()
+        readStocks()
     }
 
-    private fun readProducts() {
+    private fun readStocks() {
         val filepath = "products.md"
         File(filepath).forEachLine {
             val split = it.split(",")
-            products.add(
-                Product(
+            stocks.add(
+                StockEntity(
                     split[0],
                     split[1].toInt(),
                     split[2].toInt(),
-                    split[3]
+                    split[3].toPromotion()
                 )
             )
         }
     }
+
+
 
 }
