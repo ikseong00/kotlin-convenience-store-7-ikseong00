@@ -1,7 +1,7 @@
 package store.view
 
 import camp.nextstep.edu.missionutils.Console
-import store.utils.Validator
+import store.utils.message.InputMessages.MEMBERSHIP_DISCOUNT_INPUT_MESSAGE
 import store.utils.message.InputMessages.NOW
 import store.utils.message.InputMessages.PRICE_INTRODUCTION_INPUT_MESSAGE
 import store.utils.message.InputMessages.PROMOTION_INTRODUCTION_INPUT_MESSAGE
@@ -25,6 +25,11 @@ object InputView {
         println(
             "$NOW$inputProductName $inputProductQuantity$PRICE_INTRODUCTION_INPUT_MESSAGE"
         )
+        return Console.readLine()
+    }
+
+    fun getMembership(): String {
+        println(MEMBERSHIP_DISCOUNT_INPUT_MESSAGE)
         return Console.readLine()
     }
 
