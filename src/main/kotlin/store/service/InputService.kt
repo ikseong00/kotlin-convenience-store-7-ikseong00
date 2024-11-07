@@ -58,4 +58,16 @@ class InputService(
         }
     }
 
+    fun getMembershipDiscount(): String {
+        while (true) {
+            try {
+                val input = InputView.getMembership()
+                return Validator.validateYesOrNo(input)
+            } catch (e: IllegalArgumentException) {
+                println(e.message)
+                continue
+            }
+        }
+    }
+
 }
