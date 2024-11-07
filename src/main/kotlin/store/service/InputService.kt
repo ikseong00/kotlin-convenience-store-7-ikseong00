@@ -70,4 +70,16 @@ class InputService(
         }
     }
 
+    fun getRepurchase(): String {
+        while (true) {
+            try {
+                val input = InputView.getRepurchase()
+                return Validator.validateYesOrNo(input)
+            } catch (e: IllegalArgumentException) {
+                println(e.message)
+                continue
+            }
+        }
+    }
+
 }
