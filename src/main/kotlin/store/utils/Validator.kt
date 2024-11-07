@@ -4,11 +4,14 @@ import store.model.StockEntity
 import store.utils.message.ErrorMessages.MONEY_INPUT_FORMAT_ERROR
 import store.utils.message.ErrorMessages.PRODUCT_NOT_FOUND_ERROR
 import store.utils.message.ErrorMessages.STOCK_QUANTITY_ERROR
+import store.utils.message.ErrorMessages.WRONG_INPUT_ERROR
 
 object Validator {
 
     private const val REGEX =
         "(\\[(.[^]\\[\\-,]+)-(\\d+)])((,)(\\[(.[^]\\[\\-,]+)-(\\d+)]))*"
+    const val YES = "Y"
+    const val NO = "N"
 
     fun validatePurchaseInfo(inputPurchaseInfo: String): List<String> {
         val pattern = Regex(REGEX)
@@ -50,6 +53,13 @@ object Validator {
         if (stock.quantity < inputProductQuantity) {
             throw IllegalArgumentException(STOCK_QUANTITY_ERROR)
         }
+    }
+
+    fun validateYesOrNo(input: String): String {
+        when (input) {
+            YES, NO -> return input
+        }
+        throw IllegalArgumentException(WRONG_INPUT_ERROR)
     }
 
 
