@@ -1,5 +1,6 @@
 package store.view
 
+import store.model.PurchaseProduct
 import store.model.Stock
 
 object OutputView {
@@ -14,11 +15,33 @@ object OutputView {
         }
     }
 
-    private fun printStock(stock: Stock) {
-//        - 콜라 1,000원 10개 탄산2+1
-        if (stock.isPromotion) {
-            println("- ${stock.name} ${stock.price}원 ${stock.promotionQuantity}개 ${stock.promotion}")
+    fun printProductReceipt(purchaseProducts: List<PurchaseProduct>) {
+        println("==============W 편의점================")
+        println("상품명\t\t수량\t금액")
+        purchaseProducts.forEach {
+            it.printQuantityAndPrice()
         }
-        println("- ${stock.name} ${stock.price}원 ${stock.quantity}개 ")
     }
+
+    fun printPromotionReceipt(purchaseProducts: List<PurchaseProduct>) {
+        println("=============증\t정===============")
+        purchaseProducts.forEach {
+            it.printQuantity()
+        }
+    }
+
+    fun printTotalMoneyReceipt(
+        totalPrice: Int,
+        totalQuantity: Int,
+        promotionDiscount: Int,
+        membershipDiscount: Int
+    ) {
+        println("====================================")
+        println("총구매액\t\t$totalQuantity\t${totalPrice}")
+        println("행사할인\t\t\t-${promotionDiscount}")
+        println("멤버십할인\t\t\t-${membershipDiscount}")
+        println("내실돈\t\t\t${totalPrice - promotionDiscount - membershipDiscount}")
+    }
+
+
 }
