@@ -3,13 +3,13 @@ package store.model
 import store.utils.ExtensionUtil.toPromotion
 import java.io.File
 
-class ProductManager() {
+object ProductManager {
 
-    init {
-        readProducts()
-    }
+    private val stocks = mutableListOf<Stock>()
+    private const val PRODUCTS_FILE_PATH = "src/main/resources/products.md"
+    private const val NULL = "null"
 
-    private fun readProducts() {
+    fun readProducts() {
         File(PRODUCTS_FILE_PATH).useLines { lines ->
             lines.drop(1).forEach { line ->
                 getProductLine(line)
@@ -69,9 +69,4 @@ class ProductManager() {
 
     fun getStocks(): List<Stock> = stocks.toList()
 
-    companion object {
-        private val stocks = mutableListOf<Stock>()
-        private const val PRODUCTS_FILE_PATH = "src/main/resources/products.md"
-        private const val NULL = "null"
-    }
 }
