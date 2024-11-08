@@ -2,29 +2,38 @@ package store.view
 
 import store.model.PurchaseProduct
 import store.model.Stock
+import store.utils.message.OutputMessages.DIVIDING_LINE_MESSAGE
+import store.utils.message.OutputMessages.MEMBERSHIP_DISCOUNT_MESSAGE
+import store.utils.message.OutputMessages.PAY_MONEY_MESSAGE
+import store.utils.message.OutputMessages.PRODUCT_RECEIPT_MESSAGE
+import store.utils.message.OutputMessages.PROMOTION_DISCOUNT_MESSAGE
+import store.utils.message.OutputMessages.PROMOTION_RECEIPT_MESSAGE
+import store.utils.message.OutputMessages.TOTAL_MONEY_MESSAGE
+import store.utils.message.OutputMessages.WELCOME_MESSAGE
+import store.utils.message.OutputMessages.W_CONVENIENCE_STORE
 
 object OutputView {
     fun printWelcomeMessage() {
-        println("안녕하세요. W편의점입니다.")
-        println("현재 보유하고 있는 상품입니다.")
+        println(WELCOME_MESSAGE)
     }
 
     fun printStocks(stocks: List<Stock>) {
         stocks.forEach {
             it.printStock()
         }
+        println()
     }
 
     fun printProductReceipt(purchaseProducts: List<PurchaseProduct>) {
-        println("==============W 편의점================")
-        println("상품명\t\t수량\t금액")
+        println(W_CONVENIENCE_STORE)
+        println(PRODUCT_RECEIPT_MESSAGE)
         purchaseProducts.forEach {
             it.printQuantityAndPrice()
         }
     }
 
     fun printPromotionReceipt(purchaseProducts: List<PurchaseProduct>) {
-        println("=============증\t정===============")
+        println(PROMOTION_RECEIPT_MESSAGE)
         purchaseProducts.forEach {
             it.printQuantity()
         }
@@ -36,11 +45,12 @@ object OutputView {
         promotionDiscount: Int,
         membershipDiscount: Int
     ) {
-        println("====================================")
-        println("총구매액\t\t$totalQuantity\t${totalPrice}")
-        println("행사할인\t\t\t-${promotionDiscount}")
-        println("멤버십할인\t\t\t-${membershipDiscount}")
-        println("내실돈\t\t\t${totalPrice - promotionDiscount - membershipDiscount}")
+        println(DIVIDING_LINE_MESSAGE)
+
+        println("$TOTAL_MONEY_MESSAGE$totalQuantity\t${totalPrice}")
+        println("$PROMOTION_DISCOUNT_MESSAGE${promotionDiscount}")
+        println("$MEMBERSHIP_DISCOUNT_MESSAGE${membershipDiscount}")
+        println("$PAY_MONEY_MESSAGE${totalPrice - promotionDiscount - membershipDiscount}")
     }
 
 
