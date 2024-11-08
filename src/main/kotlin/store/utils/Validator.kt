@@ -63,7 +63,8 @@ object Validator {
         stocks: List<Stock>
     ) {
         val stock = stocks.find { it.name == inputProductName }!!
-        if (stock.quantity < inputProductQuantity) {
+        val totalQuantity = stock.quantity + stock.promotionQuantity
+        if (totalQuantity < inputProductQuantity) {
             throw IllegalArgumentException(STOCK_QUANTITY_ERROR)
         }
     }
