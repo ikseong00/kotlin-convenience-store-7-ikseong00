@@ -7,7 +7,8 @@ enum class Promotion(
     val buy: Int?,
     val get: Int?,
     val startDate: LocalDateTime?,
-    val endDate: LocalDateTime?
+    val endDate: LocalDateTime?,
+    var promotionCount: Int = 0
 ) {
 
     // TODO : 파일에서 읽어오는 기능을 추가해야 함
@@ -30,8 +31,11 @@ enum class Promotion(
         null, null, null, null, null
     );
 
-    fun isFitPromotionQuantity(quantity: Int): Boolean = (quantity % (buy!! + get!!)) == 0
+    init {
+        promotionCount = buy!! + get!!
+    }
+    fun isFitPromotionQuantity(quantity: Int): Boolean = quantity % promotionCount == 0
 
-    fun getPromotionQuantity(quantity: Int): Int = quantity / (buy!! + get!!)
+    fun getPromotionQuantity(quantity: Int): Int = quantity / promotionCount
 
 }

@@ -9,17 +9,22 @@ object PromotionService {
 
     fun adaptPromotionProduct(product: PurchaseProduct, stocks: List<Stock>) {
         if (product.promotion == Promotion.NULL) return
+        initPresentedQuantity(product, stocks)
         when (checkPromotionStock(product, stocks)) {
             true -> setPresentedQuantity(product)
             false -> {}
         }
     }
 
+    private fun initPresentedQuantity(product: PurchaseProduct, stocks: List<Stock>) {
+        product.presentedQuantity = 3 - product.quantity % 3
+    }
+
     private fun checkPromotionStock(product: PurchaseProduct, stocks: List<Stock>): Boolean {
         val promotionStock = stocks.find { it.name == product.name }!!
-
+        val promotionCount = promotionStock.promotion.promotionCount
         val availablePromotionQuantity =
-            if (product.quantity % 3 == 0) 0 else 3 - product.quantity % 3
+            if (product.quantity % promotionCount == 0) 0 else promotionCount - product.quantity % promotionCount
 
         return product.quantity + availablePromotionQuantity <= promotionStock.promotionQuantity
     }
