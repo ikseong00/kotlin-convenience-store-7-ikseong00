@@ -12,7 +12,8 @@ data class Stock(
 ) {
     fun printStock() {
         if (isPromotion) {
-            println("- $name ${price.toDecimalString()}원 ${promotionQuantity}개 ${promotion.promotionName}")
+            if (promotionQuantity == 0) println("- $name ${price.toDecimalString()}원 재고 없음 ${promotion.promotionName}")
+            else println("- $name ${price.toDecimalString()}원 ${promotionQuantity}개 ${promotion.promotionName}")
         }
         if (quantity == 0) println("- $name ${price.toDecimalString()}원 재고 없음")
         else println("- $name ${price.toDecimalString()}원 ${quantity}개 ")
