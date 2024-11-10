@@ -31,16 +31,22 @@ class StoreController {
 
     fun run() {
 
+        printInitMessage()
+        purchaseProducts.forEach { PromotionService.adaptPromotionProduct(it, stocks) }
 
-        purchaseProducts.forEach {
-            PromotionService.adaptPromotionProduct(it, stocks)
-        }
-        val membership = InputService.getMembershipDiscount()
-
-        val receipt = ReceiptService.createReceipt(purchaseProducts, membership)
-
+        val receipt = makeReceipt()
         printReceipt(receipt)
 
+    }
+
+    private fun makeReceipt(): Receipt {
+        val membership = InputService.getMembershipDiscount()
+        return ReceiptService.createReceipt(purchaseProducts, membership)
+    }
+
+    private fun printInitMessage() {
+        OutputView.printWelcomeMessage()
+        OutputView.printStocks(stocks)
     }
 
     private fun printReceipt(receipt: Receipt) {
@@ -49,6 +55,5 @@ class StoreController {
             purchaseProducts.filter { it.isPromotion }
         )
         OutputView.printTotalMoneyReceipt(receipt)
-
     }
 }
