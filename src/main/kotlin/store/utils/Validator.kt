@@ -1,6 +1,7 @@
 package store.utils
 
 import store.model.Stock
+import store.model.UserAnswer
 import store.utils.message.ErrorMessages.MONEY_INPUT_FORMAT_ERROR
 import store.utils.message.ErrorMessages.PRODUCT_NOT_FOUND_ERROR
 import store.utils.message.ErrorMessages.STOCK_QUANTITY_ERROR
@@ -69,10 +70,10 @@ object Validator {
         }
     }
 
-    fun validateYesOrNo(input: String): String {
+    fun validateYesOrNo(input: String): UserAnswer {
         when (input) {
-            YES -> return YES
-            NO -> return NO
+            YES -> return UserAnswer.YES
+            NO -> return UserAnswer.NO
         }
         throw IllegalArgumentException(WRONG_INPUT_ERROR)
     }

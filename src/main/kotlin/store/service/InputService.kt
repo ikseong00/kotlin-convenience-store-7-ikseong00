@@ -2,6 +2,7 @@ package store.service
 
 import store.model.PurchaseProduct
 import store.model.Stock
+import store.model.UserAnswer
 import store.utils.ExtensionUtil.toProduct
 import store.utils.Validator
 import store.view.InputView
@@ -37,7 +38,7 @@ object InputService {
         return Validator.validatePurchaseInfo(input)
     }
 
-    fun getPromotionQuantityAddition(productName: String): String {
+    fun getPromotionQuantityAddition(productName: String): UserAnswer {
         while (true) {
             try {
                 val input = InputView.getPromotionAddition(productName)
@@ -49,7 +50,7 @@ object InputService {
         }
     }
 
-    fun getDefaultPricePurchase(productName: String, productQuantity: Int): String {
+    fun getDefaultPricePurchase(productName: String, productQuantity: Int): UserAnswer {
         while (true) {
             try {
                 val input = InputView.getNoneDiscountPromotion(productName, productQuantity)
@@ -61,7 +62,7 @@ object InputService {
         }
     }
 
-    fun getMembershipDiscount(): String {
+    fun getMembershipDiscount(): UserAnswer {
         while (true) {
             try {
                 val input = InputView.getMembership()
@@ -73,7 +74,7 @@ object InputService {
         }
     }
 
-    fun getRepurchase(): String {
+    fun getRepurchase(): UserAnswer {
         while (true) {
             try {
                 val input = InputView.getRepurchase()
