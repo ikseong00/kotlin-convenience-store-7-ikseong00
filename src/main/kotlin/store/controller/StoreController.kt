@@ -4,6 +4,7 @@ import store.service.StockService
 import store.model.PurchaseProduct
 import store.service.InputService
 import store.service.PromotionService
+import store.service.ReceiptService
 
 // 0. 파일로부터 정보를 읽어옴
 // 1. 구매 수량과 품목을 입력받음
@@ -30,7 +31,9 @@ class StoreController {
         purchaseProducts.forEach {
             PromotionService.adaptPromotionProduct(it, stocks)
         }
+        val membership = InputService.getMembershipDiscount()
+
+        val receipt = ReceiptService.createReceipt(purchaseProducts, membership)
 
     }
-
 }
