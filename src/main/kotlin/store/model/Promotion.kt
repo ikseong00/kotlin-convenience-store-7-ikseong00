@@ -28,7 +28,9 @@ enum class Promotion(
     ),
     NULL(
         null, null, null, null, null
-    )
+    );
+
+    fun checkAddable(quantity: Int): Int = quantity % get!!
 
 
 }

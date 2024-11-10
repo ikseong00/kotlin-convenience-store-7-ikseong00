@@ -3,11 +3,13 @@ package store.model
 data class PurchaseProduct(
     val name: String,
     var price: Int,
-    val quantity: Int
+    var quantity: Int,
+    val promotion: Promotion,
+    var totalPrice: Int = 0,
+    var isPromotion: Boolean = false,
+    val presentedQuantity: Int = 0,
+    val discountPrice: Int = 0
 ) {
-    init {
-        price
-    }
 
     fun printQuantityAndPrice() {
         println("$name\t\t$quantity\t${quantity * 1000}")

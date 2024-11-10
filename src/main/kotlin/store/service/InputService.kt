@@ -2,6 +2,7 @@ package store.service
 
 import store.model.PurchaseProduct
 import store.model.Stock
+import store.utils.ExtensionUtil.toProduct
 import store.utils.Validator
 import store.view.InputView
 
@@ -19,12 +20,15 @@ object InputService {
         }
     }
 
-    private fun separatedInfoToProducts(separatedInfo: List<String>, stocks: List<Stock>): List<PurchaseProduct> {
+    private fun separatedInfoToProducts(
+        separatedInfo: List<String>,
+        stocks: List<Stock>
+    ): List<PurchaseProduct> {
         return separatedInfo.map {
             val (name, quantity) = it.substring(1, it.length - 1).split("-")
             Validator.validateProductPurchasable(name, quantity.toInt(), stocks)
-            val price = stocks.find { stock -> stock.name == name }!!.price
-            PurchaseProduct(name, price, quantity.toInt())
+            stocks.find { stock -> stock.name == name }!!
+                .toProduct()
         }.toList()
     }
 
