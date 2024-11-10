@@ -58,6 +58,15 @@ class PromotionTest: NsTest() {
         }
     }
 
+    @Test
+    fun `프로모션 재고를 초과한 구매를 했을 때, 재고가 잘 처리 되는지 확인한다`() {
+        assertSimpleTest {
+            run("[콜라-12]", "Y", "N", "Y","[물-1]","N","N")
+            assertThat(output().replace("\\s".toRegex(), "")).contains(
+                "-콜라1,000원재고없음탄산2+1")
+        }
+    }
+
 
 
     companion object {
