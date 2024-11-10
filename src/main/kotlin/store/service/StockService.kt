@@ -5,7 +5,7 @@ import store.model.Stock
 import store.utils.ExtensionUtil.toPromotion
 import java.io.File
 
-object ProductService {
+object StockService {
 
     private val stocks = mutableListOf<Stock>()
     private const val PRODUCTS_FILE_PATH = "src/main/resources/products.md"
