@@ -1,9 +1,9 @@
 package store.controller
 
-import store.service.ProductService
+import store.service.StockService
 import store.model.PurchaseProduct
-import store.model.Stock
 import store.service.InputService
+import store.service.PromotionService
 
 // 0. 파일로부터 정보를 읽어옴
 // 1. 구매 수량과 품목을 입력받음
@@ -22,14 +22,14 @@ import store.service.InputService
 // 7.2. 아니면 프로그램 종료
 class StoreController {
 
-    private val stocks = ProductService.getStocks()
-    private lateinit var purchaseProducts: List<PurchaseProduct>
-    private val inputService = InputService(stocks)
-
+    private val stocks = StockService.getStocks()
+    private var purchaseProducts: List<PurchaseProduct> =
+        InputService.getPurchaseInfoToProducts(stocks)
 
     fun run() {
-
-        purchaseProducts = inputService.getPurchaseInfoToProducts()
+        purchaseProducts.forEach {
+            PromotionService.adaptPromotionProduct(it, stocks)
+        }
 
     }
 
