@@ -3,6 +3,7 @@ package store.controller
 import store.service.StockService
 import store.model.PurchaseProduct
 import store.model.Receipt
+import store.model.UserAnswer
 import store.service.InputService
 import store.service.PromotionService
 import store.service.ReceiptService
@@ -26,20 +27,22 @@ import store.view.OutputView
 class StoreController {
 
     private val stocks = StockService.getStocks()
-    private var purchaseProducts: List<PurchaseProduct> =
-        InputService.getPurchaseInfoToProducts(stocks)
 
     fun run() {
 
-        printInitMessage()
-        purchaseProducts.forEach { PromotionService.adaptPromotionProduct(it, stocks) }
+        do {
+            val purchaseProducts = InputService.getPurchaseInfoToProducts(stocks)
+            printInitMessage()
+            purchaseProducts.forEach { PromotionService.adaptPromotionProduct(it, stocks) }
+            val receipt = makeReceipt(purchaseProducts)
+            printReceipt(receipt, purchaseProducts)
+            StockService.updateStocks(purchaseProducts, stocks)
+        } while (InputService.getRepurchase() == UserAnswer.YES)
 
-        val receipt = makeReceipt()
-        printReceipt(receipt)
 
     }
 
-    private fun makeReceipt(): Receipt {
+    private fun makeReceipt(purchaseProducts: List<PurchaseProduct>): Receipt {
         val membership = InputService.getMembershipDiscount()
         return ReceiptService.createReceipt(purchaseProducts, membership)
     }
@@ -49,7 +52,7 @@ class StoreController {
         OutputView.printStocks(stocks)
     }
 
-    private fun printReceipt(receipt: Receipt) {
+    private fun printReceipt(receipt: Receipt, purchaseProducts: List<PurchaseProduct>) {
         OutputView.printProductReceipt(purchaseProducts)
         OutputView.printPromotionReceipt(
             purchaseProducts.filter { it.isPromotion }

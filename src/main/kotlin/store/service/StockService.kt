@@ -1,6 +1,7 @@
 package store.service
 
 import store.model.Promotion
+import store.model.PurchaseProduct
 import store.model.Stock
 import store.utils.ExtensionUtil.toPromotion
 import java.io.File
@@ -72,6 +73,25 @@ object StockService {
                 name, price.toInt(), quantity = 0, promotion, promotionQuantity = quantity.toInt()
             )
         )
+    }
+
+    fun updateStocks(purchaseProducts: List<PurchaseProduct>, stocks: List<Stock>) {
+        purchaseProducts.forEach { purchaseProduct ->
+            val stock = stocks.find { it.name == purchaseProduct.name }!!
+            updateStock(purchaseProduct, stock)
+        }
+    }
+
+    private fun updateStock(purchaseProduct: PurchaseProduct, stock: Stock) {
+        if (!purchaseProduct.isPromotion) {
+            stock.quantity -= purchaseProduct.quantity
+            return
+        }
+        if(purchaseProduct.quantity > stock.promotionQuantity) {
+            stock.quantity -= purchaseProduct.quantity - stock.promotionQuantity
+            stock.promotionQuantity = 0
+            return
+        }
     }
 
 }
