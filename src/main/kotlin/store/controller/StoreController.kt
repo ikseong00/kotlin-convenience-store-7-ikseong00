@@ -24,11 +24,12 @@ class StoreController {
 
     private val stocks = ProductService.getStocks()
     private lateinit var purchaseProducts: List<PurchaseProduct>
+    private val inputService = InputService(stocks)
 
 
     fun run() {
 
-        purchaseProducts = InputService(stocks).getPurchaseInfoToProducts()
+        purchaseProducts = inputService.getPurchaseInfoToProducts()
 
     }
 
