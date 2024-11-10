@@ -5,15 +5,13 @@ import store.model.Stock
 import store.utils.Validator
 import store.view.InputView
 
-class InputService(
-    private val stocks: List<Stock>
-) {
+object InputService {
 
-    fun getPurchaseInfoToProducts(): List<PurchaseProduct> {
+    fun getPurchaseInfoToProducts(stocks: List<Stock>): List<PurchaseProduct> {
         while (true) {
             try {
                 val separatedInfo = getAndSeparateInput()
-                return separatedInfoToProducts(separatedInfo)
+                return separatedInfoToProducts(separatedInfo, stocks)
             } catch (e: IllegalArgumentException) {
                 println(e.message)
                 continue
@@ -21,7 +19,7 @@ class InputService(
         }
     }
 
-    private fun separatedInfoToProducts(separatedInfo: List<String>): List<PurchaseProduct> {
+    private fun separatedInfoToProducts(separatedInfo: List<String>, stocks: List<Stock>): List<PurchaseProduct> {
         return separatedInfo.map {
             val (name, quantity) = it.substring(1, it.length - 1).split("-")
             Validator.validateProductPurchasable(name, quantity.toInt(), stocks)
