@@ -19,7 +19,7 @@ class PromotionTest {
     *
     * */
     @Test
-    fun `프로모션 재고가 충분하고, 프로모션 혜택을 받을 수 있는 경우 혜택 여부를 확인한다`() {
+    fun `프로모션 재고가 충분하고, 프로모션 혜택을 받을 수 있는 경우 혜택이 추가된다`() {
 
         val y = "Y"
         val inputStream = ByteArrayInputStream(y.toByteArray())
@@ -28,9 +28,9 @@ class PromotionTest {
         val purchaseProduct = PurchaseProduct(
             name = "콜라",
             price = 1000,
-            quantity = 7,
+            quantity = 8,
             promotion = Promotion.CARBONIC_ACID,
-            totalPrice = 7000,
+            totalPrice = 8000,
             isPromotion = true,
             presentedQuantity = 0,
             discountPrice = 0
@@ -40,10 +40,10 @@ class PromotionTest {
             purchaseProduct, stock
         )
 
-        assertEquals(2, purchaseProduct.presentedQuantity)
+        assertEquals(3, purchaseProduct.presentedQuantity)
 //        assertEquals(9, purchaseProduct.quantity)
-
     }
+
 
 
     companion object {
