@@ -1,15 +1,22 @@
-package store.model
+package store.service
 
+import store.model.Promotion
+import store.model.Stock
 import store.utils.ExtensionUtil.toPromotion
 import java.io.File
 
-object ProductManager {
+object ProductService {
 
     private val stocks = mutableListOf<Stock>()
     private const val PRODUCTS_FILE_PATH = "src/main/resources/products.md"
     private const val NULL = "null"
 
-    fun readProducts() {
+    fun getStocks(): List<Stock> {
+        if (stocks.isEmpty()) readProducts()
+        return stocks.toList()
+    }
+
+    private fun readProducts() {
         File(PRODUCTS_FILE_PATH).useLines { lines ->
             lines.drop(1).forEach { line ->
                 getProductLine(line)
@@ -66,7 +73,5 @@ object ProductManager {
             )
         )
     }
-
-    fun getStocks(): List<Stock> = stocks.toList()
 
 }

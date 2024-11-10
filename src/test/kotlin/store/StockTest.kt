@@ -2,7 +2,6 @@ package store
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import store.model.ProductManager
 import store.model.Promotion
 import store.model.Stock
 
