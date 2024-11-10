@@ -26,4 +26,6 @@ object ExtensionUtil {
             isPromotion = isPromotion
         )
 
+    fun Int.toDecimalString() = String.format("%,d", this)
+
 }

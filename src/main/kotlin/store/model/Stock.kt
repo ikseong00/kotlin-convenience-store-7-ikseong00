@@ -1,5 +1,7 @@
 package store.model
 
+import store.utils.ExtensionUtil.toDecimalString
+
 data class Stock(
     val name: String,
     val price: Int,
@@ -10,9 +12,11 @@ data class Stock(
 ) {
     fun printStock() {
         if (isPromotion) {
-            println("- $name ${price}원 ${promotionQuantity}개 ${promotion}")
+            println("- $name ${price.toDecimalString()}원 ${promotionQuantity}개 ${promotion.promotionName}")
         }
-        println("- $name ${price}원 ${quantity}개 ")
+        if (quantity == 0) println("- $name ${price.toDecimalString()}원 재고 없음")
+        else println("- $name ${price.toDecimalString()}원 ${quantity}개 ")
+
     }
 
     init {

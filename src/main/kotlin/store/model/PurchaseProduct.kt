@@ -1,5 +1,7 @@
 package store.model
 
+import store.utils.ExtensionUtil.toDecimalString
+
 data class PurchaseProduct(
     val name: String,
     var price: Int,
@@ -15,7 +17,7 @@ data class PurchaseProduct(
     }
 
     fun printQuantityAndPrice() {
-        println("$name\t\t$quantity\t${quantity * 1000}")
+        println("$name\t\t$quantity\t${totalPrice.toDecimalString()}")
     }
 
     fun printPresentedQuantity() {

@@ -3,6 +3,7 @@ package store.view
 import store.model.PurchaseProduct
 import store.model.Receipt
 import store.model.Stock
+import store.utils.ExtensionUtil.toDecimalString
 import store.utils.message.OutputMessages.DIVIDING_LINE_MESSAGE
 import store.utils.message.OutputMessages.MEMBERSHIP_DISCOUNT_MESSAGE
 import store.utils.message.OutputMessages.PAY_MONEY_MESSAGE
@@ -45,10 +46,10 @@ object OutputView {
     ) {
         println(DIVIDING_LINE_MESSAGE)
 
-        println("$TOTAL_MONEY_MESSAGE${receipt.totalQuantity}\t${receipt.totalPrice}")
-        println("$PROMOTION_DISCOUNT_MESSAGE${receipt.promotionDiscount}")
-        println("$MEMBERSHIP_DISCOUNT_MESSAGE${receipt.membershipDiscount}")
-        println("$PAY_MONEY_MESSAGE${receipt.totalPrice - receipt.promotionDiscount - receipt.membershipDiscount}")
+        println("$TOTAL_MONEY_MESSAGE${receipt.totalQuantity}\t${receipt.totalPrice.toDecimalString()}")
+        println("$PROMOTION_DISCOUNT_MESSAGE${receipt.promotionDiscount.toDecimalString()}")
+        println("$MEMBERSHIP_DISCOUNT_MESSAGE${receipt.membershipDiscount.toDecimalString()}")
+        println("$PAY_MONEY_MESSAGE${(receipt.totalPrice - receipt.promotionDiscount - receipt.membershipDiscount).toDecimalString()}")
     }
 
 

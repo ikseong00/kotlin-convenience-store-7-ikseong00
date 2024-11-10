@@ -9,14 +9,14 @@ import store.utils.message.ErrorMessages.WRONG_INPUT_ERROR
 
 object Validator {
 
-    private const val MAIN_REGEX = "(\\[(.[^\\[\\]\\-,]+)-(\\d+)])"
+    private const val MAIN_REGEX = "(\\[([a-zA-Z가-힣]+)-(\\d+)])"
     private const val COMMA = "((,)"
     private const val STAR = ")*"
 
     private const val REGEX =
         MAIN_REGEX + COMMA + MAIN_REGEX + STAR
-    const val YES = "Y"
-    const val NO = "N"
+    private const val YES = "Y"
+    private const val NO = "N"
 
     fun validatePurchaseInfo(inputPurchaseInfo: String): List<String> {
         val pattern = Regex(REGEX)
@@ -26,14 +26,12 @@ object Validator {
             }
 
             !pattern.matches(inputPurchaseInfo) -> {
-
+                println(123123)
                 throw IllegalArgumentException(
                     MONEY_INPUT_FORMAT_ERROR
                 )
             }
 
-            else -> {
-            }
         }
         return inputPurchaseInfo.split(",")
     }
@@ -45,7 +43,6 @@ object Validator {
         stocks: List<Stock>
     ): Boolean {
         val stockNames = stocks.map { it.name }.toList()
-
         checkProductName(inputProductName, stockNames)
         checkProductQuantity(inputProductName, inputProductQuantity, stocks)
 
