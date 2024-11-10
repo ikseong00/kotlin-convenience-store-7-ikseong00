@@ -3,6 +3,8 @@ package store.service
 import store.model.PurchaseProduct
 import store.model.Receipt
 import store.model.UserAnswer
+import kotlin.math.max
+import kotlin.math.min
 
 object ReceiptService {
 
@@ -18,8 +20,16 @@ object ReceiptService {
         purchaseProducts.forEach { product ->
             calculateProduct(product, receipt, membership)
         }
+        calculateMembershipDiscount(receipt, membership)
         calculatePayMoney(receipt)
         return receipt
+    }
+
+    private fun calculateMembershipDiscount(receipt: Receipt, membership: UserAnswer) {
+        receipt.membershipDiscount = min(
+            (receipt.membershipDiscount * 0.3).toInt(),
+            8000
+        )
     }
 
     private fun calculateProduct(

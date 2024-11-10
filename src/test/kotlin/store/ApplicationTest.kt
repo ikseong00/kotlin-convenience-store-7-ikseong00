@@ -59,6 +59,21 @@ class ApplicationTest : NsTest() {
         }
     }
 
+    @Test
+    fun `멤버십 할인 테스트`() {
+        assertSimpleTest {
+            run("[물-10]", "Y", "Y")
+            assertThat(output().replace("\\s".toRegex(), "")).contains("멤버십할인-1,500")
+        }
+    }
+    @Test
+    fun `멤버십 할인이 8000원을 넘지 않는다`() {
+        assertSimpleTest {
+            run("[물-10],[정식도시락-8],[에너지바-5]", "Y", "Y")
+            assertThat(output().replace("\\s".toRegex(), "")).contains("멤버십할인-8,000")
+        }
+    }
+
     override fun runMain() {
         main()
     }

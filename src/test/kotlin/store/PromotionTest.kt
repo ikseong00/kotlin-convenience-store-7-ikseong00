@@ -31,7 +31,7 @@ class PromotionTest: NsTest() {
     @Test
     fun `프로모션 재고가 충분하고, 프로모션 혜택을 거절하면 그대로 계산된다`() {
         assertSimpleTest {
-            run("[콜라-8]", "Y", "N")
+            run("[콜라-8]", "N", "N")
             assertThat(output().replace("\\s".toRegex(), "")).contains("콜라2")
         }
     }
