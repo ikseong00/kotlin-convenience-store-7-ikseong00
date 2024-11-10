@@ -13,9 +13,10 @@ object PromotionService {
         if (product.promotion == Promotion.NULL) return
         if (promotionFinished(product.promotion)) return
         initPresentedAndDiscount(product, stocks)
-        when (checkPromotionStock(product, stocks)) {
+        val promotionStock = stocks.find { it.name == product.name }!!
+        when (checkPromotionStock(product, promotionStock)) {
             true -> setPresentedQuantity(product)
-            false -> askDefaultPrice(product)
+            false -> askDefaultPrice(product, promotionStock)
         }
     }
 
@@ -25,8 +26,7 @@ object PromotionService {
         product.discountPrice = product.presentedQuantity * product.price
     }
 
-    private fun checkPromotionStock(product: PurchaseProduct, stocks: List<Stock>): Boolean {
-        val promotionStock = stocks.find { it.name == product.name }!!
+    private fun checkPromotionStock(product: PurchaseProduct, promotionStock: Stock): Boolean {
         val promotionCount = promotionStock.promotion.promotionCount
         val availablePromotionQuantity =
             if (product.quantity % promotionCount == 0) 0 else promotionCount - product.quantity % promotionCount
@@ -48,7 +48,14 @@ object PromotionService {
         product.presentedQuantity += 1
     }
 
-    private fun askDefaultPrice(product: PurchaseProduct) {
+    private fun askDefaultPrice(product: PurchaseProduct, promotionStock: Stock) {
+        val defaultPriceQuantity = product.quantity - promotionStock.promotionQuantity
 
+        when (InputService.getDefaultPricePurchase(product.name, defaultPriceQuantity)) {
+            UserAnswer.YES -> return
+            UserAnswer.NO -> {
+                product.quantity -= defaultPriceQuantity
+            }
+        }
     }
 }
