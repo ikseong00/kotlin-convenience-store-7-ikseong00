@@ -30,7 +30,8 @@ enum class Promotion(
         null, null, null, null, null
     );
 
-    fun checkAddable(quantity: Int): Int = quantity % get!!
+    fun isFitPromotionQuantity(quantity: Int): Boolean = (quantity % (buy!! + get!!)) == 0
+
 
 
 }
