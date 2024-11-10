@@ -2,9 +2,11 @@ package store.controller
 
 import store.service.StockService
 import store.model.PurchaseProduct
+import store.model.Receipt
 import store.service.InputService
 import store.service.PromotionService
 import store.service.ReceiptService
+import store.view.OutputView
 
 // 0. 파일로부터 정보를 읽어옴
 // 1. 구매 수량과 품목을 입력받음
@@ -28,12 +30,25 @@ class StoreController {
         InputService.getPurchaseInfoToProducts(stocks)
 
     fun run() {
+
+
         purchaseProducts.forEach {
             PromotionService.adaptPromotionProduct(it, stocks)
         }
         val membership = InputService.getMembershipDiscount()
 
         val receipt = ReceiptService.createReceipt(purchaseProducts, membership)
+
+        printReceipt(receipt)
+
+    }
+
+    private fun printReceipt(receipt: Receipt) {
+        OutputView.printProductReceipt(purchaseProducts)
+        OutputView.printPromotionReceipt(
+            purchaseProducts.filter { it.isPromotion }
+        )
+        OutputView.printTotalMoneyReceipt(receipt)
 
     }
 }

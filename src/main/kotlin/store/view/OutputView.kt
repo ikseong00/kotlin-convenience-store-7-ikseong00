@@ -1,6 +1,7 @@
 package store.view
 
 import store.model.PurchaseProduct
+import store.model.Receipt
 import store.model.Stock
 import store.utils.message.OutputMessages.DIVIDING_LINE_MESSAGE
 import store.utils.message.OutputMessages.MEMBERSHIP_DISCOUNT_MESSAGE
@@ -35,22 +36,19 @@ object OutputView {
     fun printPromotionReceipt(purchaseProducts: List<PurchaseProduct>) {
         println(PROMOTION_RECEIPT_MESSAGE)
         purchaseProducts.forEach {
-            it.printQuantity()
+            it.printPresentedQuantity()
         }
     }
 
     fun printTotalMoneyReceipt(
-        totalPrice: Int,
-        totalQuantity: Int,
-        promotionDiscount: Int,
-        membershipDiscount: Int
+        receipt: Receipt
     ) {
         println(DIVIDING_LINE_MESSAGE)
 
-        println("$TOTAL_MONEY_MESSAGE$totalQuantity\t${totalPrice}")
-        println("$PROMOTION_DISCOUNT_MESSAGE${promotionDiscount}")
-        println("$MEMBERSHIP_DISCOUNT_MESSAGE${membershipDiscount}")
-        println("$PAY_MONEY_MESSAGE${totalPrice - promotionDiscount - membershipDiscount}")
+        println("$TOTAL_MONEY_MESSAGE${receipt.totalQuantity}\t${receipt.totalPrice}")
+        println("$PROMOTION_DISCOUNT_MESSAGE${receipt.promotionDiscount}")
+        println("$MEMBERSHIP_DISCOUNT_MESSAGE${receipt.membershipDiscount}")
+        println("$PAY_MONEY_MESSAGE${receipt.totalPrice - receipt.promotionDiscount - receipt.membershipDiscount}")
     }
 
 

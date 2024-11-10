@@ -18,7 +18,7 @@ data class PurchaseProduct(
         println("$name\t\t$quantity\t${quantity * 1000}")
     }
 
-    fun printQuantity() {
-        println("$name\t\t$quantity")
+    fun printPresentedQuantity() {
+        println("$name\t\t$presentedQuantity")
     }
 }
