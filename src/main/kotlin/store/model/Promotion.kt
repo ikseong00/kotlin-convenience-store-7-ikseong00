@@ -32,6 +32,6 @@ enum class Promotion(
 
     fun isFitPromotionQuantity(quantity: Int): Boolean = (quantity % (buy!! + get!!)) == 0
 
-
+    fun getPromotionQuantity(quantity: Int): Int = quantity / (buy!! + get!!)
 
 }

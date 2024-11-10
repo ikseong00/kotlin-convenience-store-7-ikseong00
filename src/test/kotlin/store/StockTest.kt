@@ -4,13 +4,13 @@ import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import store.model.Promotion
 import store.model.Stock
+import store.service.StockService
 
 class StockTest {
     @Test
     fun `재고 정보를 읽어오는지 확인한다`() {
-        val productManager = ProductManager()
 
-        val stocks = productManager.getStocks()
+        val stocks = StockService.getStocks()
 
 
 
