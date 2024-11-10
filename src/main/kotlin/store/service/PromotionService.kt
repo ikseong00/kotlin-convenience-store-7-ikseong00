@@ -56,12 +56,13 @@ object PromotionService {
     }
 
     private fun askDefaultPrice(product: PurchaseProduct, promotionStock: Stock) {
-        val defaultPriceQuantity = product.quantity - promotionStock.promotionQuantity
+        val defaultPriceQuantity =
+            product.quantity - (promotionStock.promotionQuantity - promotionStock.promotionQuantity % product.promotion.promotionCount)
 
         when (InputService.getDefaultPricePurchase(product.name, defaultPriceQuantity)) {
             UserAnswer.YES -> return
             UserAnswer.NO -> {
-                setProduct(defaultPriceQuantity, product)
+                setProduct(-defaultPriceQuantity, product)
             }
         }
     }

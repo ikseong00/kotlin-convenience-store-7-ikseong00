@@ -66,7 +66,7 @@ class PromotionTest {
             purchaseProduct, stock
         )
 
-        assertEquals(10, purchaseProduct.quantity)
+        assertEquals(9, purchaseProduct.quantity)
 //        assertEquals(9, purchaseProduct.quantity)
     }
 
