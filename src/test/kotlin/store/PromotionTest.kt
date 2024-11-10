@@ -70,6 +70,32 @@ class PromotionTest {
 //        assertEquals(9, purchaseProduct.quantity)
     }
 
+    @Test
+    fun `프로모션 재고를 초과한 구매를 했을 때, 프로모션 개수가 제대로 정해지는 지 확인한다`() {
+
+        val userAnswer = "Y"
+        val inputStream = ByteArrayInputStream(userAnswer.toByteArray())
+
+        System.setIn(inputStream)
+        val purchaseProduct = PurchaseProduct(
+            name = "콜라",
+            price = 1000,
+            quantity = 12,
+            promotion = Promotion.CARBONIC_ACID,
+            totalPrice = 8000,
+            isPromotion = true,
+            presentedQuantity = 0,
+            discountPrice = 0
+        )
+
+        PromotionService.adaptPromotionProduct(
+            purchaseProduct, stock
+        )
+
+        assertEquals(3, purchaseProduct.presentedQuantity)
+//        assertEquals(9, purchaseProduct.quantity)
+    }
+
 
 
     companion object {

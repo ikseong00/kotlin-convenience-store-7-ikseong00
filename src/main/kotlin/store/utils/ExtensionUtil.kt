@@ -17,11 +17,11 @@ object ExtensionUtil {
             else -> Promotion.NULL
         }
 
-    fun Stock.toProduct() =
+    fun Stock.toProduct(purchaseQuantity: Int) =
         PurchaseProduct(
             name = name,
             price = price,
-            quantity = quantity,
+            quantity = purchaseQuantity,
             promotion = promotion,
             isPromotion = isPromotion
         )

@@ -29,7 +29,7 @@ object InputService {
             val (name, quantity) = it.substring(1, it.length - 1).split("-")
             Validator.validateProductPurchasable(name, quantity.toInt(), stocks)
             stocks.find { stock -> stock.name == name }!!
-                .toProduct()
+                .toProduct(quantity.toInt())
         }.toList()
     }
 

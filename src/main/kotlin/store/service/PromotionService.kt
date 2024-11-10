@@ -6,14 +6,15 @@ import store.model.PurchaseProduct
 import store.model.Stock
 import store.model.UserAnswer
 import store.utils.DateTimeUtil.promotionFinished
+import kotlin.math.min
 
 object PromotionService {
 
     fun adaptPromotionProduct(product: PurchaseProduct, stocks: List<Stock>) {
         if (product.promotion == Promotion.NULL) return
         if (promotionFinished(product.promotion)) return
-        initPresentedAndDiscount(product, stocks)
         val promotionStock = stocks.find { it.name == product.name }!!
+        initPresentedAndDiscount(product, promotionStock)
         when (checkPromotionStock(product, promotionStock)) {
             true -> setPresentedQuantity(product)
             false -> askDefaultPrice(product, promotionStock)
@@ -21,8 +22,12 @@ object PromotionService {
     }
 
 
-    private fun initPresentedAndDiscount(product: PurchaseProduct, stocks: List<Stock>) {
-        product.presentedQuantity = product.promotion.getPresentedQuantity(product.quantity)
+    private fun initPresentedAndDiscount(product: PurchaseProduct, promotionStock: Stock) {
+
+        product.presentedQuantity = min(
+            product.promotion.getPresentedQuantity(product.quantity),
+            promotionStock.promotionQuantity / promotionStock.promotion.promotionCount
+        )
         product.discountPrice = product.presentedQuantity * product.price
     }
 
@@ -31,21 +36,23 @@ object PromotionService {
         val availablePromotionQuantity =
             if (product.quantity % promotionCount == 0) 0 else promotionCount - product.quantity % promotionCount
 
-        return product.quantity + availablePromotionQuantity <= promotionStock.promotionQuantity
+        return product.quantity + availablePromotionQuantity < promotionStock.promotionQuantity
     }
 
     private fun setPresentedQuantity(product: PurchaseProduct) {
         if (product.promotion.isAddable(product.quantity)) {
             when (InputService.getPromotionQuantityAddition(product.name)) {
-                UserAnswer.YES -> addPresentedQuantity(product)
+                UserAnswer.YES -> setProduct(1, product)
                 UserAnswer.NO -> return
             }
         }
     }
 
-    private fun addPresentedQuantity(product: PurchaseProduct) {
-        product.quantity += 1
-        product.presentedQuantity += 1
+    private fun setProduct(quantity: Int, product: PurchaseProduct) {
+        product.quantity += quantity
+        product.presentedQuantity += quantity
+        product.totalPrice += product.price
+        product.discountPrice += product.price
     }
 
     private fun askDefaultPrice(product: PurchaseProduct, promotionStock: Stock) {
@@ -54,7 +61,7 @@ object PromotionService {
         when (InputService.getDefaultPricePurchase(product.name, defaultPriceQuantity)) {
             UserAnswer.YES -> return
             UserAnswer.NO -> {
-                product.quantity -= defaultPriceQuantity
+                setProduct(defaultPriceQuantity, product)
             }
         }
     }
