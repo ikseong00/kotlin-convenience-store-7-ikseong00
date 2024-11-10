@@ -1,6 +1,9 @@
 package store
 
 import camp.nextstep.edu.missionutils.Console
+import camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest
+import camp.nextstep.edu.missionutils.test.NsTest
+import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import store.model.Promotion
@@ -9,7 +12,7 @@ import store.service.PromotionService
 import store.service.StockService
 import java.io.ByteArrayInputStream
 
-class PromotionTest {
+class PromotionTest: NsTest() {
 
     /*
     * 프로모션 상품이 아니면 종료
@@ -20,85 +23,48 @@ class PromotionTest {
     * */
     @Test
     fun `프로모션 재고가 충분하고, 프로모션 혜택을 받을 수 있는 경우 혜택이 추가된다`() {
-
-        val y = "Y"
-        val inputStream = ByteArrayInputStream(y.toByteArray())
-
-        System.setIn(inputStream)
-        val purchaseProduct = PurchaseProduct(
-            name = "콜라",
-            price = 1000,
-            quantity = 8,
-            promotion = Promotion.CARBONIC_ACID,
-            totalPrice = 8000,
-            isPromotion = true,
-            presentedQuantity = 0,
-            discountPrice = 0
-        )
-
-        PromotionService.adaptPromotionProduct(
-            purchaseProduct, stock
-        )
-
-        assertEquals(3, purchaseProduct.presentedQuantity)
-//        assertEquals(9, purchaseProduct.quantity)
+        assertSimpleTest {
+            run("[콜라-8]", "Y", "N")
+            assertThat(output().replace("\\s".toRegex(), "")).contains("콜라3")
+        }
     }
-
+    @Test
+    fun `프로모션 재고가 충분하고, 프로모션 혜택을 거절하면 그대로 계산된다`() {
+        assertSimpleTest {
+            run("[콜라-8]", "Y", "N")
+            assertThat(output().replace("\\s".toRegex(), "")).contains("콜라2")
+        }
+    }
     @Test
     fun `프로모션 재고가 부족하고, 정가 결제를 거부할 때 구매 수량이 조정된다`() {
-
-        val userAnswer = "N"
-        val inputStream = ByteArrayInputStream(userAnswer.toByteArray())
-
-        System.setIn(inputStream)
-        val purchaseProduct = PurchaseProduct(
-            name = "콜라",
-            price = 1000,
-            quantity = 11,
-            promotion = Promotion.CARBONIC_ACID,
-            totalPrice = 8000,
-            isPromotion = true,
-            presentedQuantity = 0,
-            discountPrice = 0
-        )
-
-        PromotionService.adaptPromotionProduct(
-            purchaseProduct, stock
-        )
-
-        assertEquals(9, purchaseProduct.quantity)
-//        assertEquals(9, purchaseProduct.quantity)
+        assertSimpleTest {
+            run("[콜라-11]", "N", "N")
+            assertThat(output().replace("\\s".toRegex(), "")).contains("콜라9")
+        }
+    }
+    @Test
+    fun `프로모션 재고가 부족하고, 정가 결제를 승인할 때 그대로 계산된다`() {
+        assertSimpleTest {
+            run("[콜라-11]", "N", "N")
+            assertThat(output().replace("\\s".toRegex(), "")).contains("콜라9")
+        }
     }
 
     @Test
     fun `프로모션 재고를 초과한 구매를 했을 때, 프로모션 개수가 제대로 정해지는 지 확인한다`() {
-
-        val userAnswer = "Y"
-        val inputStream = ByteArrayInputStream(userAnswer.toByteArray())
-
-        System.setIn(inputStream)
-        val purchaseProduct = PurchaseProduct(
-            name = "콜라",
-            price = 1000,
-            quantity = 12,
-            promotion = Promotion.CARBONIC_ACID,
-            totalPrice = 8000,
-            isPromotion = true,
-            presentedQuantity = 0,
-            discountPrice = 0
-        )
-
-        PromotionService.adaptPromotionProduct(
-            purchaseProduct, stock
-        )
-
-        assertEquals(3, purchaseProduct.presentedQuantity)
-//        assertEquals(9, purchaseProduct.quantity)
+        assertSimpleTest {
+            run("[콜라-12]", "Y", "N")
+            assertThat(output().replace("\\s".toRegex(), "")).contains("콜라3")
+        }
     }
 
 
 
     companion object {
         val stock = StockService.getStocks()
+    }
+
+    override fun runMain() {
+        main()
     }
 }
