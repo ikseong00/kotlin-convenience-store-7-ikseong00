@@ -40,12 +40,24 @@ object ReceiptService {
         receipt: Receipt,
         membership: UserAnswer
     ) {
-        receipt.totalPrice += product.totalPrice
-        receipt.totalQuantity += product.quantity
+        calculatePriceAndQuantity(product, receipt)
         if (product.isPromotion) {
             receipt.promotionDiscount += product.discountPrice
             return
         }
+        setMembershipDiscount(receipt, membership, product)
+    }
+
+    private fun calculatePriceAndQuantity(product: PurchaseProduct, receipt: Receipt) {
+        receipt.totalPrice += product.totalPrice
+        receipt.totalQuantity += product.quantity
+    }
+
+    private fun setMembershipDiscount(
+        receipt: Receipt,
+        membership: UserAnswer,
+        product: PurchaseProduct
+    ) {
         receipt.membershipDiscount = when (membership) {
             UserAnswer.YES -> receipt.membershipDiscount + product.totalPrice
             UserAnswer.NO -> ZERO
