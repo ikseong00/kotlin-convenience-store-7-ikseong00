@@ -43,6 +43,7 @@ object IOService {
     fun getPromotionQuantityAddition(productName: String): UserAnswer {
         while (true) {
             try {
+                OutputView.printPromotionAddition(productName)
                 val input = InputView.getPromotionAddition(productName)
                 return Validator.validateYesOrNo(input)
             } catch (e: IllegalArgumentException) {

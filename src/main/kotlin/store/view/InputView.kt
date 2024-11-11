@@ -15,9 +15,6 @@ object InputView {
     }
 
     fun getPromotionAddition(inputProductName: String): String {
-        println(
-            NOW + inputProductName + PROMOTION_INTRODUCTION_INPUT_MESSAGE
-        )
         return Console.readLine()
     }
 
