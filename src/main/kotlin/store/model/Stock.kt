@@ -18,19 +18,30 @@ data class Stock(
 ) {
 
     fun printStock() {
-        if (isPromotion) {
-            println("$DASH $name ${price.toDecimalString()}$WON ${promotionQuantity.toQuantity()} ${promotion.promotionName}")
-        }
-        println("$DASH $name ${price.toDecimalString()}$WON ${quantity.toQuantity()}")
+        println(
+            "$DASH $name ${price.toDecimalString()}$WON " +
+                    if (isPromotion) "${promotionQuantity.toQuantity()} ${promotion.promotionName}"
+                    else quantity.toQuantity()
+        )
     }
 
     fun toText(): String {
+        val text = "$name,$price,${quantity.toTextQuantity()},${NULL}\n"
         if (isPromotion) {
             return "$name,$price,${promotionQuantity.toTextQuantity()},${promotion.promotionName}\n" +
-                    "$name,$price,${quantity.toTextQuantity()},${Promotion.NULL}\n"
+                    text
         }
-        return "$name,$price,${quantity.toTextQuantity()},${NULL}\n"
+        return text
     }
+
+    fun toProduct(purchaseQuantity: Int) =
+        PurchaseProduct(
+            name = name,
+            price = price,
+            quantity = purchaseQuantity,
+            promotion = promotion,
+            isPromotion = isPromotion
+        )
 
     init {
         if (promotion != Promotion.NULL) {

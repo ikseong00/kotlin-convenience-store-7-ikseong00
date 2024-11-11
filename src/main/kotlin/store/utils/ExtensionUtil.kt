@@ -17,14 +17,7 @@ object ExtensionUtil {
             else -> Promotion.NULL
         }
 
-    fun Stock.toProduct(purchaseQuantity: Int) =
-        PurchaseProduct(
-            name = name,
-            price = price,
-            quantity = purchaseQuantity,
-            promotion = promotion,
-            isPromotion = isPromotion
-        )
+
 
     fun Int.toDecimalString() = String.format(DECIMAL_FORMAT, this)
 
