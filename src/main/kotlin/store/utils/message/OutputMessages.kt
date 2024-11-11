@@ -15,4 +15,6 @@ object OutputMessages {
     const val PROMOTION_DISCOUNT_MESSAGE = "행사할인\t\t\t-"
     const val MEMBERSHIP_DISCOUNT_MESSAGE = "멤버십할인\t\t\t"
     const val PAY_MONEY_MESSAGE = "내실돈\t\t\t"
+
+    const val CHANGE_LINE = "\n"
 }

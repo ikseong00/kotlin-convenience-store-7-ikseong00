@@ -67,14 +67,7 @@ object OutputView {
     ) {
         println(DIVIDING_LINE_MESSAGE)
 
-        println("$TOTAL_MONEY_MESSAGE${receipt.totalQuantity}\t${receipt.totalPrice.toDecimalString()}")
-        println("$PROMOTION_DISCOUNT_MESSAGE${receipt.promotionDiscount.toDecimalString()}")
-        println(
-            "$MEMBERSHIP_DISCOUNT_MESSAGE${
-                if (receipt.membershipDiscount != 0) (-receipt.membershipDiscount).toDecimalString() else ""
-            }"
-        )
-        println("$PAY_MONEY_MESSAGE${(receipt.totalPrice - receipt.promotionDiscount - receipt.membershipDiscount).toDecimalString()}")
+        println(receipt)
     }
 
     fun printRepurchase() {
