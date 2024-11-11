@@ -1,6 +1,5 @@
 package store.service
 
-import camp.nextstep.edu.missionutils.DateTimes
 import store.model.Promotion
 import store.model.PurchaseProduct
 import store.model.Stock
@@ -41,7 +40,7 @@ object PromotionService {
 
     private fun setPresentedQuantity(product: PurchaseProduct) {
         if (product.promotion.isAddable(product.quantity)) {
-            when (InputService.getPromotionQuantityAddition(product.name)) {
+            when (IOService.getPromotionQuantityAddition(product.name)) {
                 UserAnswer.YES -> setProduct(1, product)
                 UserAnswer.NO -> return
             }
@@ -59,7 +58,7 @@ object PromotionService {
         val defaultPriceQuantity =
             product.quantity - (promotionStock.promotionQuantity - promotionStock.promotionQuantity % product.promotion.promotionCount)
 
-        when (InputService.getDefaultPricePurchase(product.name, defaultPriceQuantity)) {
+        when (IOService.getDefaultPricePurchase(product.name, defaultPriceQuantity)) {
             UserAnswer.YES -> return
             UserAnswer.NO -> {
                 setProduct(-defaultPriceQuantity, product)

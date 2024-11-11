@@ -11,7 +11,6 @@ import store.utils.message.InputMessages.REPURCHASE_INPUT_MESSAGE
 object InputView {
 
     fun getPurchaseInfo(): String {
-        println(PURCHASE_INPUT_MESSAGE)
         return Console.readLine()
     }
 

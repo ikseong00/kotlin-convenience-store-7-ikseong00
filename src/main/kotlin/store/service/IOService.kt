@@ -6,8 +6,9 @@ import store.model.UserAnswer
 import store.utils.ExtensionUtil.toProduct
 import store.utils.Validator
 import store.view.InputView
+import store.view.OutputView
 
-object InputService {
+object IOService {
 
     fun getPurchaseInfoToProducts(stocks: List<Stock>): List<PurchaseProduct> {
         while (true) {
@@ -34,6 +35,7 @@ object InputService {
     }
 
     private fun getAndSeparateInput(): List<String> {
+        OutputView.printPurchaseMessage()
         val input = InputView.getPurchaseInfo()
         return Validator.validatePurchaseInfo(input)
     }

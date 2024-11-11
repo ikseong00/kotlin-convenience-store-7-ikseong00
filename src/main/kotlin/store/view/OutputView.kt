@@ -26,6 +26,10 @@ object OutputView {
         println()
     }
 
+    fun printPurchaseMessage() {
+        println(PRODUCT_RECEIPT_MESSAGE)
+    }
+
     fun printProductReceipt(purchaseProducts: List<PurchaseProduct>) {
         println(W_CONVENIENCE_STORE)
         println(PRODUCT_RECEIPT_MESSAGE)

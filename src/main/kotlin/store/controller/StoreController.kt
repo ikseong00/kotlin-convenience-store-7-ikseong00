@@ -4,7 +4,7 @@ import store.service.StockService
 import store.model.PurchaseProduct
 import store.model.Receipt
 import store.model.UserAnswer
-import store.service.InputService
+import store.service.IOService
 import store.service.PromotionService
 import store.service.ReceiptService
 import store.view.OutputView
@@ -31,19 +31,19 @@ class StoreController {
     fun run() {
 
         do {
-            val purchaseProducts = InputService.getPurchaseInfoToProducts(stocks)
+            val purchaseProducts = IOService.getPurchaseInfoToProducts(stocks)
             printInitMessage()
             purchaseProducts.forEach { PromotionService.adaptPromotionProduct(it, stocks) }
             val receipt = makeReceipt(purchaseProducts)
             printReceipt(receipt, purchaseProducts)
             StockService.updateStocks(purchaseProducts, stocks)
-        } while (InputService.getRepurchase() == UserAnswer.YES)
+        } while (IOService.getRepurchase() == UserAnswer.YES)
 
 
     }
 
     private fun makeReceipt(purchaseProducts: List<PurchaseProduct>): Receipt {
-        val membership = InputService.getMembershipDiscount()
+        val membership = IOService.getMembershipDiscount()
         return ReceiptService.createReceipt(purchaseProducts, membership)
     }
 
