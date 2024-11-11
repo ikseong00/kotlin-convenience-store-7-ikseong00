@@ -30,4 +30,6 @@ object ExtensionUtil {
 
     fun Int.toQuantity() = if (this <= 0) NO_STOCK else (this.toString() + COUNT)
 
+    fun Int.toTextQuantity() = if (this <= 0) NO_STOCK else this.toString()
+
 }

@@ -2,6 +2,7 @@ package store.model
 
 import store.utils.ExtensionUtil.toDecimalString
 import store.utils.ExtensionUtil.toQuantity
+import store.utils.ExtensionUtil.toTextQuantity
 import store.utils.message.Constants.COUNT
 import store.utils.message.Constants.DASH
 import store.utils.message.Constants.NULL
@@ -18,17 +19,17 @@ data class Stock(
 
     fun printStock() {
         if (isPromotion) {
-            println("$DASH $name ${price.toDecimalString()}$WON ${promotionQuantity.toQuantity()}$COUNT ${promotion.promotionName}")
+            println("$DASH $name ${price.toDecimalString()}$WON ${promotionQuantity.toQuantity()} ${promotion.promotionName}")
         }
-        println("$DASH $name ${price.toDecimalString()}$WON ${quantity.toQuantity()}$COUNT")
+        println("$DASH $name ${price.toDecimalString()}$WON ${quantity.toQuantity()}")
     }
 
     fun toText(): String {
         if (isPromotion) {
-            return "$name,$price,${quantity.toQuantity()},${promotion.promotionName}\n" +
-                    "$name,$price,${promotionQuantity.toQuantity()},${Promotion.NULL}\n"
+            return "$name,$price,${promotionQuantity.toTextQuantity()},${promotion.promotionName}\n" +
+                    "$name,$price,${quantity.toTextQuantity()},${Promotion.NULL}\n"
         }
-        return "$name,$price,${quantity.toQuantity()},${NULL}\n"
+        return "$name,$price,${quantity.toTextQuantity()},${NULL}\n"
     }
 
     init {
