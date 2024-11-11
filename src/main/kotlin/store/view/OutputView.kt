@@ -3,19 +3,15 @@ package store.view
 import store.model.PurchaseProduct
 import store.model.Receipt
 import store.model.Stock
-import store.utils.ExtensionUtil.toDecimalString
-import store.utils.message.InputMessages.MEMBERSHIP_DISCOUNT_INPUT_MESSAGE
-import store.utils.message.InputMessages.NOW
-import store.utils.message.InputMessages.PRICE_INTRODUCTION_INPUT_MESSAGE
-import store.utils.message.InputMessages.PROMOTION_INTRODUCTION_INPUT_MESSAGE
-import store.utils.message.InputMessages.REPURCHASE_INPUT_MESSAGE
 import store.utils.message.OutputMessages.DIVIDING_LINE_MESSAGE
-import store.utils.message.OutputMessages.MEMBERSHIP_DISCOUNT_MESSAGE
-import store.utils.message.OutputMessages.PAY_MONEY_MESSAGE
+import store.utils.message.OutputMessages.MEMBERSHIP_DISCOUNT_INPUT_MESSAGE
+import store.utils.message.OutputMessages.NOW
+import store.utils.message.OutputMessages.PRICE_INTRODUCTION_INPUT_MESSAGE
 import store.utils.message.OutputMessages.PRODUCT_RECEIPT_MESSAGE
-import store.utils.message.OutputMessages.PROMOTION_DISCOUNT_MESSAGE
+import store.utils.message.OutputMessages.PROMOTION_INTRODUCTION_INPUT_MESSAGE
 import store.utils.message.OutputMessages.PROMOTION_RECEIPT_MESSAGE
-import store.utils.message.OutputMessages.TOTAL_MONEY_MESSAGE
+import store.utils.message.OutputMessages.PURCHASE_INPUT_MESSAGE
+import store.utils.message.OutputMessages.REPURCHASE_INPUT_MESSAGE
 import store.utils.message.OutputMessages.WELCOME_MESSAGE
 import store.utils.message.OutputMessages.W_CONVENIENCE_STORE
 
@@ -32,7 +28,7 @@ object OutputView {
     }
 
     fun printPurchaseMessage() {
-        println(PRODUCT_RECEIPT_MESSAGE)
+        println(PURCHASE_INPUT_MESSAGE)
     }
 
     fun printPromotionAddition(inputProductName: String) {
