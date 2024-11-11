@@ -3,6 +3,7 @@ package store.controller
 import store.service.StockService
 import store.model.PurchaseProduct
 import store.model.Receipt
+import store.model.Stock
 import store.model.UserAnswer
 import store.service.IOService
 import store.service.PromotionService
@@ -26,13 +27,12 @@ import store.view.OutputView
 // 7.2. 아니면 프로그램 종료
 class StoreController {
 
-    private val stocks = StockService.getStocks()
-
     fun run() {
 
         do {
+            val stocks = StockService.getStocks()
             val purchaseProducts = IOService.getPurchaseInfoToProducts(stocks)
-            printInitMessage()
+            printInitMessage(stocks)
             purchaseProducts.forEach { PromotionService.adaptPromotionProduct(it, stocks) }
             val receipt = makeReceipt(purchaseProducts)
             printReceipt(receipt, purchaseProducts)
@@ -47,7 +47,7 @@ class StoreController {
         return ReceiptService.createReceipt(purchaseProducts, membership)
     }
 
-    private fun printInitMessage() {
+    private fun printInitMessage(stocks: List<Stock>) {
         OutputView.printWelcomeMessage()
         OutputView.printStocks(stocks)
     }

@@ -23,34 +23,118 @@
 ## 세부 기능 목록
 ### model
 
-### `StockEntity`
-
-### `Product`
-
 ### `Promotion`
-`enum class`
+프로모션 종류와 그 정보를 가지고 있는 클래스
+```kotlin
+enum class Promotion(
+    val promotionName: String,
+    val buy: Int,
+    val get: Int,
+    var promotionCount: Int,
+    val startDate: LocalDateTime,
+    val endDate: LocalDateTime
+)
+```
+- 탄산2+1
+- MD추천상품
+- 반짝할인
+- NULL
+
+`isAddable()` : 프로모션 혜택을 받을 수 있는 지 확인
+`getPresentedQuantity()` : 증정 상품 수량 반환 
+
+### `PurchaseProduct`
+사용자가 구매한 상품 정보를 가지고 있는 클래스
+```kotlin
+data class PurchaseProduct(
+    val name: String,
+    var price: Int,
+    var quantity: Int,
+    val promotion: Promotion,
+    var totalPrice: Int = 0,
+    var isPromotion: Boolean = false,
+    var presentedQuantity: Int = 0,
+    var discountPrice: Int = 0
+)
+```
+`printQuantityAndPrice()` : 상품 수량과 가격 출력
+`printPresentedQuantity()` : 증정 상품 수량 출력
 
 ### `Recipt`
+구매한 상품에 대해서 총 금액, 수량, 할인 금액 등을 가지고 있는 클래스
+```kotlin
+data class Receipt(
+    var totalPrice: Int = 0,
+    var totalQuantity: Int = 0,
+    var promotionDiscount: Int = 0,
+    var membershipDiscount: Int = 0,
+    var payMoney: Int = 0
+)
+```
 
-### `Membership`
+### `Stock`
+products.md 에 있는 상품 정보를 저장하여 가지고 있는 클래스
+```kotlin
+data class Stock(
+    val name: String,
+    val price: Int,
+    var quantity: Int = 0,
+    val promotion: Promotion,
+    var promotionQuantity: Int = 0,
+    var isPromotion: Boolean = false
+) 
+```
+`printStock()` : 재고 출력
+### `UserAnswer`
+사용자의 답변(Y/N) 을 가지고 있는 클래스
+```kotlin
+enum class UserAnswer {
+    YES, NO
+}
+```
+`when` 으로 처리하기 위해 `enum` 으로 구현
 
 ### view
 ### `InputView`
-- [ ] 구매 상품, 수량 입력
-- [ ] 프로모션 상품 수량 추가 여부 입력
-- [ ] 프로모션 재고 부족 시 정가 결제 여부 입력
-- [ ] 멤버십 할인 적용 여부 입력
-- [ ] 추가 구매 여부 입력
+- 어떤 입력이든 받기만 한다
+- 입력 값을 관리하는 로직은 서비스 레이어에서 처리
 ### `OutputView`
-- [ ] 환영 인사 출력
-- [ ] 보유 상품 안내 메시지 출력
-- [ ] 현재 재고 출력 (재고가 없으면 "재고 없음")
-- [ ] 프로모션 상품 혜택 안내 메시지 출력
-- [ ] 프로모션 재고 부족 시 정가 결제 여부 메시지 출력
-- [ ] 멤버십 할인 적용 여부 메시지 출력
-- [ ] 구매 상품 내역, 증정 상품 내역, 금액 정보 출력
-- [ ] 추가 구매 여부 메시지 출력
+- [x] 환영 인사와 보유 상품 안내 메시지 출력
+- [x] 현재 재고 출력 (재고가 없으면 "재고 없음")
+- [x] 구매 안내 메시지 출력
+- [x] 프로모션 상품 혜택 안내 메시지 출력
+- [x] 프로모션 재고 부족 시 정가 결제 여부 메시지 출력
+- [x] 멤버십 할인 적용 여부 메시지 출력
+- [x] 구매 상품 내역, 증정 상품 내역, 금액 정보 출력
+- [x] 추가 구매 여부 메시지 출력
 
+### service
+### `IOService`
+입출력을 관리하고, 입력의 유효성을 검증하는 클래스
+- [x] 구매 상품과 수량을 입력 받음
+- [x] 프로모션 상품을 수량보다 적게 가져온 경우, 추가 여부를 입력 받음
+- [x] 프로모션 재고가 부족하여 혜택 없이 결제해야 하는 경우, 일부 수량을 정가로 결제할 지 여부를 입력 받음
+- [x] 멤버십 할인 적용 여부를 입력 받음
+- [x] 추가 구매 여부를 입력 받음
+
+### `PromotionService`
+프로모션 정보를 관리하는 클래스
+- [x] 프로모션 상품인 경우, 증정 수량을 기록함
+- [x] 프로모션 상품인 경우, 추가 혜택 여부와 정가 결제 여부를 물어봄
+
+### `ReceiptService`
+금액 결제 관련 영수증을 기록하는 클래스
+- [x] 총구매액 관리
+- [x] 총 수량 관리
+- [x] 프로모션 할인 관리
+- [x] 멤버십 할인 관리
+- [x] 총 결제 금액 관리
+
+### `StockService`
+재고 정보를 관리하는 클래스
+- [x] 파일로부터 재고 정보를 읽어서 엔티티에 저장
+- [x] 재고 정보를 반환
+- [x] 재고 정보를 업데이트
 
 ### controller
 ### `ConvinienceStoreController`
@@ -74,11 +158,6 @@
 1. 파일로부터 재고 정보를 읽어서 엔티티에 저장
 2. 재고 정보를 반환
 3. 재고 정보를 업데이트
-
-### `MembershipController`
-1. 멤버십 할인 적용 여부를 저장
-   1. 멤버십 할인을 받지 않으면 `null`
-2. 멤버십 할인을 저장
 
 ### util
 ### `Validator`
