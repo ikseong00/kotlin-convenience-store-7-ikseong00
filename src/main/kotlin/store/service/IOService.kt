@@ -3,7 +3,6 @@ package store.service
 import store.model.PurchaseProduct
 import store.model.Stock
 import store.model.UserAnswer
-import store.utils.ExtensionUtil.toProduct
 import store.utils.Validator
 import store.view.InputView
 import store.view.OutputView

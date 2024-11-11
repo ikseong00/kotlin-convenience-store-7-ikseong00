@@ -104,12 +104,23 @@ object StockService {
 
     private fun writeStocks(stocks: List<Stock>) {
         val file = File(PRODUCTS_FILE_PATH)
-        val firstLine = file.useLines { it.first() }
+        val lines = file.readLines()
+        val firstLine = lines.first()
         var text = firstLine + CHANGE_LINE
-        stocks.forEach { text += it.toText() }
-//        println(text)
+        lines.drop(1).forEach {
+            text += matchStock(it, stocks)
+        }
         text += CHANGE_LINE
         file.writeText(text)
+    }
+
+    private fun matchStock(line: String, stocks: List<Stock>): String {
+        stocks.first { it.name == line.split(",")[0] }.let {
+            if (line.split(",")[3] == it.promotion.promotionName) {
+                return it.toPromotionText()
+            }
+            return it.toText()
+        }
     }
 
 }

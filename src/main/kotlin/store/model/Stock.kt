@@ -25,13 +25,12 @@ data class Stock(
         )
     }
 
+    fun toPromotionText(): String {
+        return "$name,$price,${promotionQuantity.toTextQuantity()},${promotion.promotionName}\n"
+    }
+
     fun toText(): String {
-        val text = "$name,$price,${quantity.toTextQuantity()},${NULL}\n"
-        if (isPromotion) {
-            return "$name,$price,${promotionQuantity.toTextQuantity()},${promotion.promotionName}\n" +
-                    text
-        }
-        return text
+        return "$name,$price,${quantity.toTextQuantity()},${NULL}\n"
     }
 
     fun toProduct(purchaseQuantity: Int) =

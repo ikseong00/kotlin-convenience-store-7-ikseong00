@@ -28,7 +28,7 @@ enum class Promotion(
         LocalDateTime.of(2024, 11, 30, 0, 0)
     ),
     NULL(
-        "null", 0, 0, 0, LocalDateTime.MIN, LocalDateTime.MIN
+        "", 0, 0, 0, LocalDateTime.MIN, LocalDateTime.MIN
     );
 
     init {
