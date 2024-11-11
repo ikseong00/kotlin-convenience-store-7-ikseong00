@@ -5,6 +5,7 @@ import store.utils.ExtensionUtil.toQuantity
 import store.utils.ExtensionUtil.toTextQuantity
 import store.utils.message.Constants.COUNT
 import store.utils.message.Constants.DASH
+import store.utils.message.Constants.EMPTY
 import store.utils.message.Constants.NULL
 import store.utils.message.Constants.WON
 
@@ -27,7 +28,7 @@ data class Stock(
 
     private fun stockInfo(quantity: Int, promotion: Promotion): String {
         return "$DASH $name ${price.toDecimalString()}$WON ${quantity.toQuantity()}" +
-                if (promotion != Promotion.NULL) " ${promotion.promotionName}" else ""
+                if (promotion != Promotion.NULL) " ${promotion.promotionName}" else EMPTY
     }
 
     fun toPromotionText(): String {

@@ -3,6 +3,9 @@ package store.service
 import store.model.PurchaseProduct
 import store.model.Receipt
 import store.model.UserAnswer
+import store.utils.message.Constants.MAX_MEMBERSHIP_DISCOUNT
+import store.utils.message.Constants.MEMBERSHIP_DISCOUNT
+import store.utils.message.Constants.ZERO
 import kotlin.math.max
 import kotlin.math.min
 
@@ -27,8 +30,8 @@ object ReceiptService {
 
     private fun calculateMembershipDiscount(receipt: Receipt, membership: UserAnswer) {
         receipt.membershipDiscount = min(
-            (receipt.membershipDiscount * 0.3).toInt(),
-            8000
+            (receipt.membershipDiscount * MEMBERSHIP_DISCOUNT).toInt(),
+            MAX_MEMBERSHIP_DISCOUNT
         )
     }
 
@@ -45,7 +48,7 @@ object ReceiptService {
         }
         receipt.membershipDiscount = when (membership) {
             UserAnswer.YES -> receipt.membershipDiscount + product.totalPrice
-            UserAnswer.NO -> 0
+            UserAnswer.NO -> ZERO
         }
     }
 

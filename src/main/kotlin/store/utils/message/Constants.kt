@@ -5,6 +5,10 @@ object Constants {
     const val MD_RECOMMEND_PROMOTION = "MD추천상품"
     const val FLASH_SALE_PROMOTION = "반짝할인"
 
+    const val MEMBERSHIP_DISCOUNT = 0.3
+    const val MAX_MEMBERSHIP_DISCOUNT = 8000
+    const val ZERO = 0
+
     const val NULL = "null"
     const val PRODUCTS_FILE_PATH = "src/main/resources/products.md"
     const val CHANGE_LINE = "\n"
