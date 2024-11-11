@@ -1,6 +1,10 @@
 package store.utils.message
 
 object Constants {
+    const val CARBONIC_ACID_PROMOTION = "탄산2+1"
+    const val MD_RECOMMEND_PROMOTION = "MD추천상품"
+    const val FLASH_SALE_PROMOTION = "반짝할인"
+
     const val NULL = "null"
     const val PRODUCTS_FILE_PATH = "src/main/resources/products.md"
     const val CHANGE_LINE = "\n"
