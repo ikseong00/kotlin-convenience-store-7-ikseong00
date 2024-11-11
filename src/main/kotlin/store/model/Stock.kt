@@ -18,11 +18,16 @@ data class Stock(
 ) {
 
     fun printStock() {
-        println(
-            "$DASH $name ${price.toDecimalString()}$WON " +
-                    if (isPromotion) "${promotionQuantity.toQuantity()} ${promotion.promotionName}"
-                    else quantity.toQuantity()
-        )
+        if (isPromotion) {
+            println(stockInfo(promotionQuantity, promotion))
+        }
+        println(stockInfo(quantity, promotion))
+
+    }
+
+    private fun stockInfo(quantity: Int, promotion: Promotion): String {
+        return "$DASH $name ${price.toDecimalString()}$WON ${quantity.toQuantity()}" +
+                if (promotion != Promotion.NULL) " ${promotion.promotionName}" else ""
     }
 
     fun toPromotionText(): String {
