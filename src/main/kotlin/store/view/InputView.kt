@@ -28,7 +28,6 @@ object InputView {
     }
 
     fun getRepurchase(): String {
-        println(REPURCHASE_INPUT_MESSAGE)
         return Console.readLine()
     }
 

@@ -82,6 +82,7 @@ object IOService {
     fun getRepurchase(): UserAnswer {
         while (true) {
             try {
+                OutputView.printRepurchase()
                 val input = InputView.getRepurchase()
                 return Validator.validateYesOrNo(input)
             } catch (e: IllegalArgumentException) {

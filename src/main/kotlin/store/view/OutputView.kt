@@ -8,6 +8,7 @@ import store.utils.message.InputMessages.MEMBERSHIP_DISCOUNT_INPUT_MESSAGE
 import store.utils.message.InputMessages.NOW
 import store.utils.message.InputMessages.PRICE_INTRODUCTION_INPUT_MESSAGE
 import store.utils.message.InputMessages.PROMOTION_INTRODUCTION_INPUT_MESSAGE
+import store.utils.message.InputMessages.REPURCHASE_INPUT_MESSAGE
 import store.utils.message.OutputMessages.DIVIDING_LINE_MESSAGE
 import store.utils.message.OutputMessages.MEMBERSHIP_DISCOUNT_MESSAGE
 import store.utils.message.OutputMessages.PAY_MONEY_MESSAGE
@@ -44,6 +45,10 @@ object OutputView {
 
     fun printMembership() {
         println(MEMBERSHIP_DISCOUNT_INPUT_MESSAGE)
+    }
+
+    fun printRepurchase() {
+        println(REPURCHASE_INPUT_MESSAGE)
     }
 
     fun printProductReceipt(purchaseProducts: List<PurchaseProduct>) {
