@@ -4,13 +4,13 @@ import store.model.Promotion
 import store.model.PurchaseProduct
 import store.model.Stock
 import store.utils.ExtensionUtil.toPromotion
+import store.utils.message.Constants.CHANGE_LINE
+import store.utils.message.Constants.PRODUCTS_FILE_PATH
 import java.io.File
 
 object StockService {
 
     private val stocks = mutableListOf<Stock>()
-    private const val PRODUCTS_FILE_PATH = "src/main/resources/products.md"
-    private const val NULL = "null"
 
     fun getStocks(): List<Stock> {
         if (stocks.isEmpty()) readProducts()
@@ -80,7 +80,7 @@ object StockService {
             val stock = stocks.find { it.name == purchaseProduct.name }!!
             updateStock(purchaseProduct, stock)
         }
-        writeStocks()
+        writeStocks(stocks)
     }
 
     private fun updateStock(purchaseProduct: PurchaseProduct, stock: Stock) {
@@ -95,8 +95,13 @@ object StockService {
         }
     }
 
-    private fun writeStocks() {
-//        TODO("Not yet implemented")
+    private fun writeStocks(stocks: List<Stock>) {
+        val file = File(PRODUCTS_FILE_PATH)
+        val firstLine = file.useLines { it.first() }
+        var text = firstLine + CHANGE_LINE
+        stocks.forEach { text += it.toText() }
+        println(text)
+        file.writeText(text)
     }
 
 }

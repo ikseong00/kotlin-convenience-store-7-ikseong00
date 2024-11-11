@@ -3,11 +3,11 @@ package store.utils
 import store.model.PurchaseProduct
 import store.model.Promotion
 import store.model.Stock
+import store.utils.message.Constants.COUNT
+import store.utils.message.Constants.DECIMAL_FORMAT
+import store.utils.message.Constants.NO_STOCK
 
 object ExtensionUtil {
-
-    private const val NULL = "null"
-    private const val EMPTY = ""
 
     fun String.toPromotion() =
         when (this) {
@@ -26,6 +26,8 @@ object ExtensionUtil {
             isPromotion = isPromotion
         )
 
-    fun Int.toDecimalString() = String.format("%,d", this)
+    fun Int.toDecimalString() = String.format(DECIMAL_FORMAT, this)
+
+    fun Int.toQuantity() = if (this <= 0) NO_STOCK else (this.toString() + COUNT)
 
 }

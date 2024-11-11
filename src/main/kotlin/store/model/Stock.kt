@@ -1,6 +1,11 @@
 package store.model
 
 import store.utils.ExtensionUtil.toDecimalString
+import store.utils.ExtensionUtil.toQuantity
+import store.utils.message.Constants.COUNT
+import store.utils.message.Constants.DASH
+import store.utils.message.Constants.NULL
+import store.utils.message.Constants.WON
 
 data class Stock(
     val name: String,
@@ -10,14 +15,20 @@ data class Stock(
     var promotionQuantity: Int = 0,
     var isPromotion: Boolean = false
 ) {
+
     fun printStock() {
         if (isPromotion) {
-            if (promotionQuantity == 0) println("- $name ${price.toDecimalString()}원 재고 없음 ${promotion.promotionName}")
-            else println("- $name ${price.toDecimalString()}원 ${promotionQuantity}개 ${promotion.promotionName}")
+            println("$DASH $name ${price.toDecimalString()}$WON ${promotionQuantity.toQuantity()}$COUNT ${promotion.promotionName}")
         }
-        if (quantity == 0) println("- $name ${price.toDecimalString()}원 재고 없음")
-        else println("- $name ${price.toDecimalString()}원 ${quantity}개 ")
+        println("$DASH $name ${price.toDecimalString()}$WON ${quantity.toQuantity()}$COUNT")
+    }
 
+    fun toText(): String {
+        if (isPromotion) {
+            return "$name,$price,${quantity.toQuantity()},${promotion.promotionName}\n" +
+                    "$name,$price,${promotionQuantity.toQuantity()},${Promotion.NULL}\n"
+        }
+        return "$name,$price,${quantity.toQuantity()},${NULL}\n"
     }
 
     init {

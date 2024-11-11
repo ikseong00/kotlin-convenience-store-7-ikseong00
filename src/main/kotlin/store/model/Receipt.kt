@@ -1,7 +1,8 @@
 package store.model
 
 import store.utils.ExtensionUtil.toDecimalString
-import store.utils.message.OutputMessages.CHANGE_LINE
+import store.utils.message.Constants.CHANGE_LINE
+import store.utils.message.Constants.EMPTY
 import store.utils.message.OutputMessages.MEMBERSHIP_DISCOUNT_MESSAGE
 import store.utils.message.OutputMessages.PAY_MONEY_MESSAGE
 import store.utils.message.OutputMessages.PROMOTION_DISCOUNT_MESSAGE
@@ -15,13 +16,13 @@ data class Receipt(
     var payMoney: Int = 0
 ) {
     override fun toString(): String {
-        var receiptInfo = ""
+        var receiptInfo = EMPTY
 
         receiptInfo += "$TOTAL_MONEY_MESSAGE${totalQuantity}\t${totalPrice.toDecimalString()}$CHANGE_LINE"
         receiptInfo += "$PROMOTION_DISCOUNT_MESSAGE${promotionDiscount.toDecimalString()}$CHANGE_LINE"
         receiptInfo +=
                 "$MEMBERSHIP_DISCOUNT_MESSAGE${
-                    if (membershipDiscount != 0) (-membershipDiscount).toDecimalString() else ""
+                    if (membershipDiscount != 0) (-membershipDiscount).toDecimalString() else EMPTY
                 }$CHANGE_LINE"
 
         receiptInfo += "$PAY_MONEY_MESSAGE${(totalPrice - promotionDiscount - membershipDiscount).toDecimalString()}$CHANGE_LINE"
