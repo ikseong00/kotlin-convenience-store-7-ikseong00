@@ -47,10 +47,6 @@ object OutputView {
         println(MEMBERSHIP_DISCOUNT_INPUT_MESSAGE)
     }
 
-    fun printRepurchase() {
-        println(REPURCHASE_INPUT_MESSAGE)
-    }
-
     fun printProductReceipt(purchaseProducts: List<PurchaseProduct>) {
         println(W_CONVENIENCE_STORE)
         println(PRODUCT_RECEIPT_MESSAGE)
@@ -79,6 +75,10 @@ object OutputView {
             }"
         )
         println("$PAY_MONEY_MESSAGE${(receipt.totalPrice - receipt.promotionDiscount - receipt.membershipDiscount).toDecimalString()}")
+    }
+
+    fun printRepurchase() {
+        println(REPURCHASE_INPUT_MESSAGE)
     }
 
 
