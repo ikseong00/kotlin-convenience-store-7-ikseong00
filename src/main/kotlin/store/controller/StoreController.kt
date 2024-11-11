@@ -31,14 +31,13 @@ class StoreController {
 
         do {
             val stocks = StockService.getStocks()
-            val purchaseProducts = IOService.getPurchaseInfoToProducts(stocks)
             printInitMessage(stocks)
+            val purchaseProducts = IOService.getPurchaseInfoToProducts(stocks)
             purchaseProducts.forEach { PromotionService.adaptPromotionProduct(it, stocks) }
             val receipt = makeReceipt(purchaseProducts)
             printReceipt(receipt, purchaseProducts)
             StockService.updateStocks(purchaseProducts, stocks)
         } while (IOService.getRepurchase() == UserAnswer.YES)
-
 
     }
 

@@ -80,18 +80,23 @@ object StockService {
             val stock = stocks.find { it.name == purchaseProduct.name }!!
             updateStock(purchaseProduct, stock)
         }
+        writeStocks()
     }
 
     private fun updateStock(purchaseProduct: PurchaseProduct, stock: Stock) {
-        if (!purchaseProduct.isPromotion) {
-            stock.quantity -= purchaseProduct.quantity
-            return
+        when {
+            !purchaseProduct.isPromotion -> stock.quantity -= purchaseProduct.quantity
+            purchaseProduct.quantity > stock.promotionQuantity -> {
+                stock.quantity -= purchaseProduct.quantity - stock.promotionQuantity
+                stock.promotionQuantity = 0
+            }
+
+            purchaseProduct.quantity <= stock.promotionQuantity -> stock.promotionQuantity -= purchaseProduct.quantity
         }
-        if(purchaseProduct.quantity > stock.promotionQuantity) {
-            stock.quantity -= purchaseProduct.quantity - stock.promotionQuantity
-            stock.promotionQuantity = 0
-            return
-        }
+    }
+
+    private fun writeStocks() {
+//        TODO("Not yet implemented")
     }
 
 }
