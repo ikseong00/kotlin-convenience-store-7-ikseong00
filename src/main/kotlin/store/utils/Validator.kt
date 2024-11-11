@@ -26,7 +26,6 @@ object Validator {
             }
 
             !pattern.matches(inputPurchaseInfo) -> {
-                println(123123)
                 throw IllegalArgumentException(
                     MONEY_INPUT_FORMAT_ERROR
                 )

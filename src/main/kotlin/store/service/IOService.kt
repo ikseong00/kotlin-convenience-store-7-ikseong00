@@ -18,7 +18,6 @@ object IOService {
                 return separatedInfoToProducts(separatedInfo, stocks)
             } catch (e: IllegalArgumentException) {
                 println(e.message)
-                continue
             }
         }
     }
@@ -63,7 +62,6 @@ object IOService {
                 return Validator.validateYesOrNo(input)
             } catch (e: IllegalArgumentException) {
                 println(e.message)
-                continue
             }
         }
     }
@@ -76,7 +74,6 @@ object IOService {
                 return Validator.validateYesOrNo(input)
             } catch (e: IllegalArgumentException) {
                 println(e.message)
-                continue
             }
         }
     }
@@ -89,7 +86,6 @@ object IOService {
                 return Validator.validateYesOrNo(input)
             } catch (e: IllegalArgumentException) {
                 println(e.message)
-                continue
             }
         }
     }
@@ -102,7 +98,6 @@ object IOService {
                 return Validator.validateYesOrNo(input)
             } catch (e: IllegalArgumentException) {
                 println(e.message)
-                continue
             }
         }
     }
