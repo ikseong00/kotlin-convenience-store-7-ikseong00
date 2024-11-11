@@ -69,6 +69,7 @@ object IOService {
     fun getMembershipDiscount(): UserAnswer {
         while (true) {
             try {
+                OutputView.printMembership()
                 val input = InputView.getMembership()
                 return Validator.validateYesOrNo(input)
             } catch (e: IllegalArgumentException) {

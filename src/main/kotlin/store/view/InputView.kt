@@ -24,7 +24,6 @@ object InputView {
     }
 
     fun getMembership(): String {
-        println(MEMBERSHIP_DISCOUNT_INPUT_MESSAGE)
         return Console.readLine()
     }
 
