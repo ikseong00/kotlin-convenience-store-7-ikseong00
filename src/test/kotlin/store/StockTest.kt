@@ -10,9 +10,8 @@ class StockTest {
     @Test
     fun `재고 정보를 읽어오는지 확인한다`() {
 
+        StockService.setDefaultStock()
         val stocks = StockService.getStocks()
-
-
 
         assertEquals(stocks, fileStocks)
     }
