@@ -22,7 +22,6 @@ object PromotionService {
 
 
     private fun initPresentedAndDiscount(product: PurchaseProduct, promotionStock: Stock) {
-
         product.presentedQuantity = min(
             product.promotion.getPresentedQuantity(product.quantity),
             promotionStock.promotionQuantity / promotionStock.promotion.promotionCount

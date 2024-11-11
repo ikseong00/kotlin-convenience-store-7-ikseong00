@@ -17,8 +17,6 @@ object ExtensionUtil {
             else -> Promotion.NULL
         }
 
-
-
     fun Int.toDecimalString() = String.format(DECIMAL_FORMAT, this)
 
     fun Int.toQuantity() = if (this <= 0) NO_STOCK else (this.toString() + COUNT)

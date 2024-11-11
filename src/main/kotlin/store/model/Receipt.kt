@@ -21,9 +21,9 @@ data class Receipt(
         receiptInfo += "$TOTAL_MONEY_MESSAGE${totalQuantity}\t${totalPrice.toDecimalString()}$CHANGE_LINE"
         receiptInfo += "$PROMOTION_DISCOUNT_MESSAGE${promotionDiscount.toDecimalString()}$CHANGE_LINE"
         receiptInfo +=
-                "$MEMBERSHIP_DISCOUNT_MESSAGE${
-                    if (membershipDiscount != 0) (-membershipDiscount).toDecimalString() else EMPTY
-                }$CHANGE_LINE"
+            "$MEMBERSHIP_DISCOUNT_MESSAGE${
+                if (membershipDiscount != 0) (-membershipDiscount).toDecimalString() else EMPTY
+            }$CHANGE_LINE"
 
         receiptInfo += "$PAY_MONEY_MESSAGE${(totalPrice - promotionDiscount - membershipDiscount).toDecimalString()}$CHANGE_LINE"
 

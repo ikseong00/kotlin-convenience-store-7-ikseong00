@@ -1,6 +1,5 @@
 package store.model
 
-import store.utils.message.Constants
 import store.utils.message.Constants.CARBONIC_ACID_PROMOTION
 import store.utils.message.Constants.EMPTY
 import store.utils.message.Constants.FLASH_SALE_PROMOTION

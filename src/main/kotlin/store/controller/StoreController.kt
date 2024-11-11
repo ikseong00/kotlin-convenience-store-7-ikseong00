@@ -29,7 +29,6 @@ class StoreController {
 
     fun run() {
         StockService.setDefaultStock()
-
         do {
             mainLoop()
         } while (IOService.getRepurchase() == UserAnswer.YES)

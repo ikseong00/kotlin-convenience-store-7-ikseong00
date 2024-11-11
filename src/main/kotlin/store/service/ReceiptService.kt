@@ -28,13 +28,6 @@ object ReceiptService {
         return receipt
     }
 
-    private fun calculateMembershipDiscount(receipt: Receipt, membership: UserAnswer) {
-        receipt.membershipDiscount = min(
-            (receipt.membershipDiscount * MEMBERSHIP_DISCOUNT).toInt(),
-            MAX_MEMBERSHIP_DISCOUNT
-        )
-    }
-
     private fun calculateProduct(
         product: PurchaseProduct,
         receipt: Receipt,
@@ -62,6 +55,13 @@ object ReceiptService {
             UserAnswer.YES -> receipt.membershipDiscount + product.totalPrice
             UserAnswer.NO -> ZERO
         }
+    }
+
+    private fun calculateMembershipDiscount(receipt: Receipt, membership: UserAnswer) {
+        receipt.membershipDiscount = min(
+            (receipt.membershipDiscount * MEMBERSHIP_DISCOUNT).toInt(),
+            MAX_MEMBERSHIP_DISCOUNT
+        )
     }
 
     private fun calculatePayMoney(receipt: Receipt) {
