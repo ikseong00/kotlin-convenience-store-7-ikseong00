@@ -6,6 +6,7 @@ import store.model.Stock
 import store.utils.ExtensionUtil.toPromotion
 import store.utils.message.Constants.CHANGE_LINE
 import store.utils.message.Constants.DEFAULT_STOCKS
+import store.utils.message.Constants.EMPTY
 import store.utils.message.Constants.PRODUCTS_FILE_PATH
 import java.io.File
 
@@ -105,17 +106,15 @@ object StockService {
     private fun writeStocks(stocks: List<Stock>) {
         val file = File(PRODUCTS_FILE_PATH)
         val lines = file.readLines()
-        val firstLine = lines.first()
-        var text = firstLine + CHANGE_LINE
+        var text = lines.first() + CHANGE_LINE
         lines.drop(1).forEach {
-            if (it.isEmpty()) return@forEach
             text += matchStock(it, stocks)
         }
-        text += CHANGE_LINE
         file.writeText(text)
     }
 
     private fun matchStock(line: String, stocks: List<Stock>): String {
+        if (line.isEmpty()) return EMPTY
         stocks.first { it.name == line.split(",")[0] }.let {
             if (line.split(",")[3] == it.promotion.promotionName) {
                 return it.toPromotionText()
