@@ -36,7 +36,7 @@ object IOService {
 
     private fun getAndSeparateInput(): List<String> {
         OutputView.printPurchaseMessage()
-        val input = InputView.getPurchaseInfo()
+        val input = InputView.getUserInput()
         return Validator.validatePurchaseInfo(input)
     }
 
@@ -44,7 +44,7 @@ object IOService {
         while (true) {
             try {
                 OutputView.printPromotionAddition(productName)
-                val input = InputView.getPromotionAddition(productName)
+                val input = InputView.getUserInput()
                 return Validator.validateYesOrNo(input)
             } catch (e: IllegalArgumentException) {
                 println(e.message)
@@ -57,7 +57,7 @@ object IOService {
         while (true) {
             try {
                 OutputView.getNoneDiscountPromotion(productName, productQuantity)
-                val input = InputView.getNoneDiscountPromotion(productName, productQuantity)
+                val input = InputView.getUserInput()
                 return Validator.validateYesOrNo(input)
             } catch (e: IllegalArgumentException) {
                 println(e.message)
@@ -70,7 +70,7 @@ object IOService {
         while (true) {
             try {
                 OutputView.printMembership()
-                val input = InputView.getMembership()
+                val input = InputView.getUserInput()
                 return Validator.validateYesOrNo(input)
             } catch (e: IllegalArgumentException) {
                 println(e.message)
@@ -83,7 +83,7 @@ object IOService {
         while (true) {
             try {
                 OutputView.printRepurchase()
-                val input = InputView.getRepurchase()
+                val input = InputView.getUserInput()
                 return Validator.validateYesOrNo(input)
             } catch (e: IllegalArgumentException) {
                 println(e.message)
