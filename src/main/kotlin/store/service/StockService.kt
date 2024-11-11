@@ -108,6 +108,7 @@ object StockService {
         val firstLine = lines.first()
         var text = firstLine + CHANGE_LINE
         lines.drop(1).forEach {
+            if (it.isEmpty()) return@forEach
             text += matchStock(it, stocks)
         }
         text += CHANGE_LINE
