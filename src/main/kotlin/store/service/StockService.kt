@@ -5,12 +5,19 @@ import store.model.PurchaseProduct
 import store.model.Stock
 import store.utils.ExtensionUtil.toPromotion
 import store.utils.message.Constants.CHANGE_LINE
+import store.utils.message.Constants.DEFAULT_STOCKS
 import store.utils.message.Constants.PRODUCTS_FILE_PATH
 import java.io.File
 
 object StockService {
 
     private val stocks = mutableListOf<Stock>()
+
+    fun setDefaultStock() {
+        File(PRODUCTS_FILE_PATH).writeText(DEFAULT_STOCKS)
+        stocks.clear()
+        readProducts()
+    }
 
     fun getStocks(): List<Stock> {
         if (stocks.isEmpty()) readProducts()
@@ -100,7 +107,8 @@ object StockService {
         val firstLine = file.useLines { it.first() }
         var text = firstLine + CHANGE_LINE
         stocks.forEach { text += it.toText() }
-        println(text)
+//        println(text)
+        text += CHANGE_LINE
         file.writeText(text)
     }
 

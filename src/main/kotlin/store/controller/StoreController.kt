@@ -28,6 +28,7 @@ import store.view.OutputView
 class StoreController {
 
     fun run() {
+        StockService.setDefaultStock()
 
         do {
             val stocks = StockService.getStocks()
