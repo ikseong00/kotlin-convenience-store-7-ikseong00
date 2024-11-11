@@ -1,9 +1,6 @@
 package store.utils.message
 
 object Constants {
-    const val CARBONIC_ACID_PROMOTION = "탄산2+1"
-    const val MD_RECOMMEND_PROMOTION = "MD추천상품"
-    const val FLASH_SALE_PROMOTION = "반짝할인"
 
     const val MEMBERSHIP_DISCOUNT = 0.3
     const val MAX_MEMBERSHIP_DISCOUNT = 8000
@@ -35,4 +32,20 @@ object Constants {
             "정식도시락,6400,8,null\n" +
             "컵라면,1700,1,MD추천상품\n" +
             "컵라면,1700,10,null\n"
+
+    // Promotion Constants
+    const val CARBONIC_ACID_PROMOTION = "탄산2+1"
+    const val MD_RECOMMEND_PROMOTION = "MD추천상품"
+    const val FLASH_SALE_PROMOTION = "반짝할인"
+
+    // Validator Constants
+    private const val MAIN_REGEX = "(\\[([a-zA-Z가-힣]+)-(\\d+)])"
+    private const val COMMA_WITH_PARENTHESIS = "((,)"
+    private const val STAR = ")*"
+
+    const val COMMA = ","
+    const val REGEX =
+        MAIN_REGEX + COMMA_WITH_PARENTHESIS + MAIN_REGEX + STAR
+    const val YES = "Y"
+    const val NO = "N"
 }
