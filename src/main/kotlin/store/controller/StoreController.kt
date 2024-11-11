@@ -31,15 +31,18 @@ class StoreController {
         StockService.setDefaultStock()
 
         do {
-            val stocks = StockService.getStocks()
-            printInitMessage(stocks)
-            val purchaseProducts = IOService.getPurchaseInfoToProducts(stocks)
-            purchaseProducts.forEach { PromotionService.adaptPromotionProduct(it, stocks) }
-            val receipt = makeReceipt(purchaseProducts)
-            printReceipt(receipt, purchaseProducts)
-            StockService.updateStocks(purchaseProducts, stocks)
+            mainLoop()
         } while (IOService.getRepurchase() == UserAnswer.YES)
 
+    }
+
+    private fun mainLoop() {
+        val stocks = StockService.getStocks()
+        val purchaseProducts = IOService.getPurchaseInfoToProducts(stocks)
+        purchaseProducts.forEach { PromotionService.adaptPromotionProduct(it, stocks) }
+        val receipt = makeReceipt(purchaseProducts)
+        IOService.printReceipt(receipt, purchaseProducts)
+        StockService.updateStocks(purchaseProducts, stocks)
     }
 
     private fun makeReceipt(purchaseProducts: List<PurchaseProduct>): Receipt {
@@ -47,16 +50,4 @@ class StoreController {
         return ReceiptService.createReceipt(purchaseProducts, membership)
     }
 
-    private fun printInitMessage(stocks: List<Stock>) {
-        OutputView.printWelcomeMessage()
-        OutputView.printStocks(stocks)
-    }
-
-    private fun printReceipt(receipt: Receipt, purchaseProducts: List<PurchaseProduct>) {
-        OutputView.printProductReceipt(purchaseProducts)
-        OutputView.printPromotionReceipt(
-            purchaseProducts.filter { it.isPromotion }
-        )
-        OutputView.printTotalMoneyReceipt(receipt)
-    }
 }

@@ -1,6 +1,7 @@
 package store.service
 
 import store.model.PurchaseProduct
+import store.model.Receipt
 import store.model.Stock
 import store.model.UserAnswer
 import store.utils.Validator
@@ -10,6 +11,7 @@ import store.view.OutputView
 object IOService {
 
     fun getPurchaseInfoToProducts(stocks: List<Stock>): List<PurchaseProduct> {
+        printInitMessage(stocks)
         while (true) {
             try {
                 val separatedInfo = getAndSeparateInput()
@@ -19,6 +21,11 @@ object IOService {
                 continue
             }
         }
+    }
+
+    private fun printInitMessage(stocks: List<Stock>) {
+        OutputView.printWelcomeMessage()
+        OutputView.printStocks(stocks)
     }
 
     private fun separatedInfoToProducts(
@@ -37,6 +44,15 @@ object IOService {
         OutputView.printPurchaseMessage()
         val input = InputView.getUserInput()
         return Validator.validatePurchaseInfo(input)
+    }
+
+
+    fun printReceipt(receipt: Receipt, purchaseProducts: List<PurchaseProduct>) {
+        OutputView.printProductReceipt(purchaseProducts)
+        OutputView.printPromotionReceipt(
+            purchaseProducts.filter { it.isPromotion }
+        )
+        OutputView.printTotalMoneyReceipt(receipt)
     }
 
     fun getPromotionQuantityAddition(productName: String): UserAnswer {
