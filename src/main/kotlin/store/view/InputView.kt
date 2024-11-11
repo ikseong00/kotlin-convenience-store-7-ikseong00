@@ -19,9 +19,7 @@ object InputView {
     }
 
     fun getNoneDiscountPromotion(inputProductName: String, inputProductQuantity: Int): String {
-        println(
-            "$NOW$inputProductName $inputProductQuantity$PRICE_INTRODUCTION_INPUT_MESSAGE"
-        )
+
         return Console.readLine()
     }
 

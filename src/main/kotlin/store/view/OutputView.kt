@@ -5,6 +5,7 @@ import store.model.Receipt
 import store.model.Stock
 import store.utils.ExtensionUtil.toDecimalString
 import store.utils.message.InputMessages.NOW
+import store.utils.message.InputMessages.PRICE_INTRODUCTION_INPUT_MESSAGE
 import store.utils.message.InputMessages.PROMOTION_INTRODUCTION_INPUT_MESSAGE
 import store.utils.message.OutputMessages.DIVIDING_LINE_MESSAGE
 import store.utils.message.OutputMessages.MEMBERSHIP_DISCOUNT_MESSAGE
@@ -34,6 +35,10 @@ object OutputView {
 
     fun printPromotionAddition(inputProductName: String) {
         println(NOW + inputProductName + PROMOTION_INTRODUCTION_INPUT_MESSAGE)
+    }
+
+    fun getNoneDiscountPromotion(inputProductName: String, inputProductQuantity: Int) {
+        println("$NOW$inputProductName $inputProductQuantity$PRICE_INTRODUCTION_INPUT_MESSAGE")
     }
 
     fun printProductReceipt(purchaseProducts: List<PurchaseProduct>) {
